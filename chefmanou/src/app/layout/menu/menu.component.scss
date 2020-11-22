@@ -1,0 +1,67 @@
+:host {
+  margin:0px;
+  padding:0px;
+}
+
+#page-menu {
+  position:fixed;
+  left:0%;
+  
+  z-index:90;
+
+  width:33%;
+  height: 100%;
+
+  padding-top:100px;
+
+  background-color: var(--menu-bg-color);
+  
+  box-shadow: 1px 1px 5px rgb(200,200,200);
+
+  transition: transform 0.5s ease-in-out;
+}
+
+  #page-menu.wrapped {
+    transform: translate(-100%, 0px);
+  }
+
+.page-menu-container {
+  box-sizing: border-box;
+  
+  flex-wrap:nowrap;
+  
+  width:100%;
+  height:100%;
+  
+  overflow-y:auto;
+}
+
+.page-menu-link{
+  font-family: pacifico;
+  font-size:24px;
+}
+
+  .page-menu-link:hover{
+    text-decoration:underline;
+  }
+
+  .page-menu-link.begin-group{
+    margin-top:20px;
+  }
+
+.page-menu-recipes{
+  margin-top:40px;
+}
+
+@media all and (max-width: 1300px)  {
+  #page-menu {
+    width:50%;
+  }
+}
+
+
+@media all and (max-width: 800px)  {
+  #page-menu {
+    width:90%;
+  }
+}

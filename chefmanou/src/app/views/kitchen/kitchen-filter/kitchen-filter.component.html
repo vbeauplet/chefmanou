@@ -1,0 +1,90 @@
+<div
+  [ngStyle]="{
+    'padding': this.padding + 'px'
+  }"
+  class="recipe-card-body full col-dir hor-center flex-block">
+
+  <search-bar
+    [size]="'near-full'"
+    [placeholder]="'Chercher une recette'"
+    (searchValue)="this.recipeFilterService.updateFreeSearch($event)">
+  </search-bar>
+  
+  <div
+    class="near-full row-dir hor-center vert-center flex-block">
+    
+    <neumorphic-button
+      [icon]="(this.filtersAreUnwrapped)?'Ö':'Ñ'"
+      [shape]="'round'"
+      [size]="50"
+      (click)="this.filtersAreUnwrapped=!this.filtersAreUnwrapped">
+    </neumorphic-button>
+     
+    <neumorphic-button
+      [icon]="'d'"
+      [shape]="'round'"
+      [size]="50"
+      (click)="this.recipeFilterService.reset()">
+    </neumorphic-button>
+  
+  </div>
+  
+  <div
+    *ngIf="this.filtersAreUnwrapped"
+    class="col-dir flex-block">
+    
+    <string-picker
+      [size]="'near-full'"
+      [singleSelection]="true"
+      [initialItems]="['Toutes les Recettes', 'Mes Recettes']"
+      [initialSelectedItems]="(this.recipeFilterService.recipeFilter.myRecipes)?['Mes Recettes']:['Toutes les Recettes']"
+      [synchrone]="true"
+      (selectItem)="this.recipeFilterService.updateRecipeNature($event)">
+    </string-picker>
+    
+    <div
+      class="big-top-margined small title">
+      Tags
+    </div>
+    
+    <string-picker
+      [size]="'near-full'"
+      [singleSelection]="true"
+      [initialItems]="['vegetarien', 'apero', 'facile', 'dessert', 'patisserie', 'asiatique', 'bouillon', 'salade', 'pizza']"
+      [initialSelectedItems]="this.recipeFilterService.recipeFilter.tags"
+      [editable]="true"
+      [forceSelectOne]="false"
+      [synchrone]="true"
+      (selectItem)="this.recipeFilterService.updateTags([$event])"
+      (unselectItem)="this.recipeFilterService.updateTags([])">
+    </string-picker>
+    
+    <div
+      class="kitchen-filter-title small title">
+      Auteurs
+    </div>
+    
+    <user-picker
+      [size]="'two-third'"
+      [singleSelection]="true"
+      [initialSelectedUsers]="this.recipeFilterService.recipeFilter.authors"
+      [synchrone]="true"
+      (selectUser)="this.recipeFilterService.updateAuthors([$event])"
+      (unselectUser)="this.recipeFilterService.updateAuthors([])">
+    </user-picker>
+    
+    <div
+      class="big-top-margined small title">
+     Trier par
+    </div>
+    
+    <string-picker
+      [size]="'near-full'"
+      [singleSelection]="true"
+      [initialItems]="['Création', 'Modification', 'Vues']"
+      [initialSelectedItems]="['Création']">
+    </string-picker>
+    
+  </div>
+    
+</div>

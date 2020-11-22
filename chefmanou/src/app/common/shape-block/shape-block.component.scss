@@ -1,0 +1,40 @@
+:host{
+  overflow:hidden;
+  border-radius:0px!important;
+}
+
+.shape-block-container{
+  position:relative;
+  width:100%;
+  
+  overflow:hidden;
+}
+
+.shape-block-container.square:after{
+  display:block;
+  content:"";
+  padding-bottom:100%;
+}
+
+.shape-block-container.round:after{
+  display:block;
+  content:"";
+  padding-bottom:100%;
+}
+
+.shape-block-container.round{
+  overflow:hidden;
+  border-radius:50%;
+}
+
+.shape-block-container.rectangle:after{
+  display:block;
+  content:"";
+  padding-bottom:50%;
+}
+
+.shape-block-content{
+  position:absolute;
+  width:100%;
+  height:100%;
+}

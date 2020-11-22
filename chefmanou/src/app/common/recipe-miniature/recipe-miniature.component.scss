@@ -1,0 +1,26 @@
+.miniature-content{
+  min-width:0px;
+}
+
+.recipe-miniature-tags {
+  width:calc(100% - 10px);
+  margin-left:10px;
+  font-size:12px;
+  
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  
+  text-align:center;
+}
+
+.recipe-miniature-tag {
+  cursor:pointer;
+  
+  margin-right:10px;
+  background-color: rgba(0,0,0,0.07);
+}
+
+.recipe-miniature-tag:hover {
+  background-color: var(--outline-content-color);
+}

@@ -1,0 +1,12 @@
+<loader
+  *ngIf="this.isLoading">
+</loader>
+
+<div 
+  *ngIf="!this.isLoading"
+  class="full row-dir hor-center flex-block">
+  <user-card
+    *ngFor="let user of this.users"
+    [user]="user">
+  </user-card>
+</div>

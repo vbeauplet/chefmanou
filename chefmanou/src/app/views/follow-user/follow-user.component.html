@@ -1,0 +1,17 @@
+<search-bar
+  style="margin-bottom:30px"
+  [size]="'xbig'"
+  [placeholder]="'Chercher des cuisiniers'"
+  (searchValue)="this.search($event)">
+</search-bar>
+
+<user-list
+  [users]="this.displayedUsers"
+  [isLoading]="!this.isLoaded">
+</user-list>
+
+<neumorphic-button
+  [icon]="']'"
+  [shape]="'square'"
+  (click)="this.showMore()">
+</neumorphic-button>

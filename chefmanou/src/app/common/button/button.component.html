@@ -1,0 +1,24 @@
+<div 
+  class="pushable outlined-sharp col-dir vert-center hor-center container-block"
+  [class.round]="this.shape === 'round'"
+  [class.dome]="this.shape === 'round'"
+  [ngStyle]="{
+    'min-width': this.size + 'px',
+    'height': this.size + 'px',
+    'margin': this.margin + 'px'}">
+  
+  <!-- Icon -->
+  <square-icon
+    [size]="this.size * 1/2"
+    [iconPackage] = "this.iconPackage"
+    [icon]="this.icon"
+    [color]="this.color">
+  </square-icon>
+  
+</div>
+
+<div
+  class="button-label">
+  {{ this.label }}
+</div>
+

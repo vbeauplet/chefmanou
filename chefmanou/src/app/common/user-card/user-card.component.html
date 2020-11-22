@@ -1,0 +1,55 @@
+<nuki-card
+  style="margin:0px"
+  [size]="'full'"
+  [imageSrc]="this.user.avatarUrl">
+  
+  <div
+    class="full col-dir hor-center flex-block user-card-content">
+  
+    <div
+      class="user-element user-name">
+      {{ this.user.name }}
+    </div>
+    
+    <div
+      class="user-element">
+      <i>@{{ this.user.pseudo }}</i>
+    </div>
+    
+    <div
+      class="user-element">
+      {{ this.userService.retrieveFollowersNb(this.user) }} followers
+    </div>
+    
+    <div
+      class="user-element near-full row-dir hor-center vert-center flex-block">
+      
+      <stateful-button
+        class="user-card-button"
+        [size]="40"
+        [shape]="'round'"
+        [icon]="(this.profileService.profile.user.followings.includes(this.user.userId))?'+':'-'"
+        [color]="(this.profileService.profile.user.followings.includes(this.user.userId))?'outline':'main'"
+        [status]="this.userFollowStatus"
+        (click)="this.onClickFollow()">
+      </stateful-button>
+    
+      <neumorphic-button
+        [size]="40"
+        [shape]="'round'"
+        [icon]="'l'"
+        title="Voir ses recettes"
+        (click)="this.onClickSeeRecipes()">
+      </neumorphic-button>
+      
+      <neumorphic-button
+        [size]="40"
+        [shape]="'round'"
+        [icon]="':'">
+      </neumorphic-button>
+    
+    </div>
+    
+  </div>
+  
+</nuki-card>

@@ -1,0 +1,24 @@
+.nuki-inner-card{
+  overflow: visible;
+  margin-top: 25%!important;
+}
+
+.circle-mask{
+  background-color: var(--element-bg-color);
+  z-index:50;
+}
+
+.photo-container{
+  margin-top:-105%;
+  z-index:30;
+}
+
+.nuki-card-photo{
+  margin-top:-50%;
+  padding:10px;
+  z-index:70;
+}
+
+.nuki-card-content{
+  z-index:60;
+}

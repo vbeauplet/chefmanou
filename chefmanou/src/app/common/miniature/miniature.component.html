@@ -1,0 +1,27 @@
+<!-- Placeholder, for positionning purposes  -->
+<div 
+  class="miniature-placeholder">
+</div>
+
+<!-- Label, Miniature content -->
+<div
+  class="miniature-text-container col-dir flex-block">
+  
+  <!-- Title -->
+  <div
+    class="miniature-title">
+    {{ this.label }}
+  </div>
+  
+  <!-- Any other info , if wanted -->
+  <ng-content></ng-content>
+  
+</div>
+
+<!-- Miniature photo -->
+<img 
+  [src]="this.photoUrl" 
+  class="miniature-photo"
+  [ngStyle]="{
+    'width': this.height + 'px',
+    'height': this.height + 'px'}"/>

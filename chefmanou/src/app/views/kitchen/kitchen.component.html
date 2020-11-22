@@ -1,0 +1,57 @@
+<div
+  class="full hor-space-between vert-up flex-block"
+  [class.col-dir]="this.kitchenFilter === undefined || !this.kitchenFilter.filtersAreUnwrapped"
+  [class.row-dir]="this.kitchenFilter !== undefined && this.kitchenFilter.filtersAreUnwrapped">
+
+  <!-- Filter card -->
+  
+  <kitchen-filter #kitchenfilter
+    style="margin-bottom:30px;margin-left:0px;margin-right:0px;margin-top:0px;"
+    [size]="'big'"
+    [padding]="20">
+  </kitchen-filter>
+  
+  <!-- Recipes -->
+
+  <div
+    class="col-dir flex-block"
+    [class.full]="!(this.kitchenFilter !== undefined && this.kitchenFilter.filtersAreUnwrapped)"
+    [class.anti-big]="this.kitchenFilter !== undefined && this.kitchenFilter.filtersAreUnwrapped">
+  
+    <recipe-list
+      [isLoading]="!this.recipeDashboardService.areRecipesLoaded"
+      [recipes]="this.recipeDashboardService.recipes"
+      (clickTag)="this.selectTagFromKitchen($event)"
+      (clickUser)="this.selectAuthorFromKitchen($event)">
+    </recipe-list>
+    
+    <div
+      style="margin-top:20px"
+      *ngIf="this.recipeDashboardService.areRecipesLoaded && this.recipeDashboardService.messageCode !== 0">
+      
+      <!-- WARNING 400 -->
+      <div
+        *ngIf="this.recipeDashboardService.messageCode === 400">
+        Aucune recette trouvée. <a routerLink="/user/follow">Ajouter des cuisiniers</a>
+      </div>
+      
+      <!-- WARNING 401 -->
+      <div
+        *ngIf="this.recipeDashboardService.messageCode === 401">
+         Impossible de faire une recherche libre si un tag est selectionné. <a (click)="this.kitchenFilter.recipeFilterService.reset()">Reset</a>
+      </div>
+     
+    </div>
+    
+    <neumorphic-button
+      style="margin-top:15px;margin-bottom:20px;"
+      *ngIf="this.recipeDashboardService.recipes.length === this.recipeFilterService.recipeFilter.numberOfRecipes"
+      [icon]="']'"
+      [shape]="'square'"
+      (click)="this.showMore()">
+    </neumorphic-button>
+  
+  </div>
+
+</div>
+  

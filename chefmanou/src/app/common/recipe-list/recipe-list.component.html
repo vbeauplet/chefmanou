@@ -1,0 +1,19 @@
+<loader
+  *ngIf="this.isLoading">
+</loader>
+
+<div 
+  *ngIf="!this.isLoading"
+  class="full row-dir hor-center flex-block">
+  <recipe-card
+    style="cursor:pointer;margin-bottom:17px;"
+    *ngFor="let recipe of this.recipes"
+    [recipe]="recipe"
+    [isLoading]="false"
+    [size]="'small'"
+    (click)="this.clickOnRecipe(recipe)"
+    (clickTag)="this.clickOnTag($event)"
+    (clickUser)="this.clickOnUser($event)">
+  </recipe-card>
+</div>
+

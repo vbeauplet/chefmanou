@@ -1,0 +1,158 @@
+<loader
+  *ngIf="!this.recipeService.isLoaded"
+  style="margin-top:50px">
+</loader>
+
+<div
+  *ngIf="this.recipeService.isLoaded"
+  class="full margined row-dir hor-center vert-up flex-block">
+  
+  
+  <card
+    style="margin:0px"
+    [size]="'xbig'">
+    
+    <active-image
+      *ngIf="this.recipeService.recipe.imageUrl !== null && this.recipeService.recipe.imageUrl !== ''"
+      style="margin-bottom:40px"
+      [hasOverlay]="true"
+      [hasUploadButton]="true"
+      [size]="'full'"
+      [shape]="'rectangle'"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [imageUrlSdbProperty]="'imageUrl'"
+      [miniatureImageUrlSdbProperty]="'miniatureImageUrl'"
+      [imageSrc]="this.recipeService.recipe.imageUrl"
+      (changeImage)="this.refreshRecipeDashboard();this.profileService.refreshLatestRecipes();">
+    </active-image>
+
+    <interactive-input
+      [size]="'near-full'"
+      [inputId]="'recipe-name-input'"
+      [inputTextAlign]="'center'"
+      [placeholder]="this.recipeService.recipe.name"
+      [altPlaceholder]="'Nom de la recette'"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'name'"
+      [enableSearchTermsUpdate]="true"
+      (onSuccess)="this.refreshRecipeDashboard();this.profileService.refreshLatestRecipes();">
+    </interactive-input>
+
+    <div 
+      class="big-top-margined small title">
+      Visibilité
+    </div>
+    
+    <string-picker
+      [size]="'near-full'"
+      [initialItems]="['privée', 'protégée', 'publique']"
+      [initialSelectedItems]="[this.recipeService.recipe.visibility]"
+      [singleSelection]="true"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'visibility'">
+    </string-picker>
+    
+    <div 
+      class="big-top-margined small title">
+      Tags
+    </div>
+    
+    <string-picker 
+      style="margin-bottom:40px;"
+      [size]="'near-full'"
+      [initialItems]="['vegetarien', 'apero', 'facile', 'dessert', 'patisserie', 'asiatique', 'bouillon', 'salade', 'pizza']"
+      [initialSelectedItems]="this.recipeService.recipe.tags"
+      [editable]="true"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'tags'"> 
+    </string-picker>
+
+  </card>
+  
+  <div
+    *ngIf="this.displayAdminCard"
+    class="medium margined padded outlined container-block">
+    
+    <div 
+      class="small title">
+      Editeurs
+    </div>
+    
+    <user-picker
+      *ngIf="this.recipeService.areAdminsLoaded"
+      [size]="'near-full'"
+      [initialSelectedUsers]="this.recipeService.resolvedAdmins"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'admins'">
+    </user-picker>
+    
+  </div>
+  
+</div>
+
+<div
+  *ngIf="this.recipeService.isLoaded"
+  class="recipe-controls col-dir hor-left flex-block">
+  
+  <stateful-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="(this.recipeService.recipe.draft)?'x':'t'"
+    [label]="this.recipeDraftFlagButtonLabel"
+    [labelPosition]="'right'"
+    [status]="this.recipeDraftFlagStatus"
+    (click)="this.onClickPublish()">
+  </stateful-button>
+  
+  <neumorphic-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'-'"
+    [label]="'Ajouter des éditeurs'"
+    [labelPosition]="'right'"
+    (click)="this.displayAdminCard = !this.displayAdminCard">
+  </neumorphic-button>
+  
+  <neumorphic-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'M'"
+    [label]="'Visualiser la recette'"
+    [labelPosition]="'right'"
+    (click)="this.onClickView()">
+  </neumorphic-button>
+  
+  <neumorphic-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'Q'"
+    [label]="'Initialiser le template'"
+    [labelPosition]="'right'"
+    (click)="this.onClickInitializeTemplate()">
+  </neumorphic-button>
+  
+</div>
+
+<div
+  *ngIf="this.recipeService.isLoaded"
+  class="secondary-content">
+
+  <div
+    *ngIf="this.recipeService.isLoaded"
+    style="margin-bottom:15px;"
+    class="full flex-block">
+    <spinner 
+      [loadingStatus]="this.recipeContentLoadingStatus">
+    </spinner>
+    <ckeditor
+      style="margin-top:15px;"
+      class="ckeditor"
+      [editor]="richTextEditor"
+      [(ngModel)]="this.recipeContent"
+      (ready)="onReady($event)"
+      (blur)="this.onBlurEditor()">
+    </ckeditor>
+  </div>
+  
+</div>
+

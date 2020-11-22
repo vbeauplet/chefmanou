@@ -1,0 +1,18 @@
+.string-picker-user{
+  width:100%;
+}
+
+.miniature-overlay{
+  cursor:pointer;
+  
+  opacity:0;
+  z-index:5;
+  
+  position:relative;
+
+  background-color: rgba(0,0,0,0.6);
+}
+
+  .miniature-overlay:hover{
+    opacity:1;
+  }

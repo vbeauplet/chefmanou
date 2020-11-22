@@ -1,0 +1,38 @@
+:host{
+  display:inline-block;
+}
+
+.loading-spinner {
+  border-radius: 50%;
+  
+  animation: spin 2s linear infinite;
+}
+
+.loading-spinner.main-colored{
+  border-top-color: var(--main-content-color);
+}
+
+.loading-spinner.soft-colored{
+  border-top-color: var(--soft-content-color);
+}
+
+.loading-spinner.outline-colored{
+  border-top-color: var(--outline-content-color);
+}
+
+.loading-spinner.neutral-colored{
+  border-top-color: var(--neutral-content-color);
+}
+
+.loading-spinner.success-colored{
+  border-top-color: var(--success-content-color);
+}
+
+.loading-spinner.failure-colored{
+  border-top-color: var(--failure-content-color);
+}
+
+  @keyframes spin {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+  }

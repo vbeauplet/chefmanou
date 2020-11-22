@@ -1,0 +1,17 @@
+.miniature-photo {
+  object-fit: cover;
+}
+
+.miniature-text-container{
+  flex-grow:1;
+}
+
+.miniature-title{
+  max-width: 90%;
+  
+  text-align:center;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

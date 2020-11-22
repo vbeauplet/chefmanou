@@ -1,0 +1,100 @@
+<div class="profile-view-paragraph full col-dir flex-block">
+
+  <h1>Ma carte de cuisinier</h1>
+  
+  <div
+    class="xbig row-dir vert-center padded hor-left outlined container-block profile-card">
+    
+    <outlined-active-image
+      style="margin:20px"
+      [size]="'medium'"
+      [shape]="'round'"
+      [imageSrc]="this.profileService.profile.user.photoUrl"
+      [hasUploadButton]="true"
+      [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
+      [imageUrlSdbProperty]="'photoUrl'"
+      [miniatureImageUrlSdbProperty]="'avatarUrl'">
+    </outlined-active-image>
+    
+    <div
+      class="profile-details col-dir hor-left flex-block">
+      
+      <interactive-input
+        [inputId]="'profile-name-input'"
+        [inputLabel]="'Nom:'"
+        [placeholder]="this.profileService.profile.user.name"
+        [altPlaceholder]="'Entrer votre nom'"
+        [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
+        [sdbProperty]="'name'"
+        [enableSearchTermUpdate]="true">
+      </interactive-input>
+      
+      <interactive-input
+        [inputId]="'profile-pseudo-input'"
+        [inputLabel]="'Pseudo:'"
+        [placeholder]="this.profileService.profile.user.pseudo"
+        [altPlaceholder]="'Entrer votre pseudo'"
+        [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
+        [sdbProperty]="'pseudo'"
+        [enableSearchTermUpdate]="true">
+      </interactive-input>
+      
+      <div style="margin-top:30px;">
+        {{ this.userService.retrieveFollowingsNb(this.profileService.profile.user) }} cuisiniers suivis
+      </div>
+      <div>
+        {{ this.userService.retrieveFollowersNb(this.profileService.profile.user) }} me suivent
+      </div>
+      
+      <div
+        style="margin-top:30px"
+        class="user-element full row-dir hor-center vert-center flex-block">
+        
+        <neumorphic-button
+          [icon]="'U'"
+          [size]="40"
+          title="Déconnexion"
+          (click)="this.onSignOut()">
+        </neumorphic-button>
+        
+        <neumorphic-button
+          [size]="40"
+          [icon]="'l'"
+          title="Mes recettes"
+          (click)="this.onClickSeeRecipes()">
+        </neumorphic-button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="profile-view-paragraph full col-dir flex-block">
+  
+  <h1>Mes cuisiniers</h1>
+  
+  <user-list
+    [users]="this.profileService.profile.resolvedFollowings"
+    [isLoading]="!this.profileService.isLoaded">
+  </user-list>
+  
+  <neumorphic-button
+      [icon]="'x'"
+      [shape]="'square'"
+      [label]="'Chercher des cuisiniers'"
+      (click)="this.onClickInviteCookers()">
+  </neumorphic-button>
+  
+</div>
+
+<div class="profile-view-paragraph full col-dir flex-block"
+  *ngIf="!this.profileService.isLoaded || (this.profileService.isLoaded && this.profileService.profile.user.followers.length !== 0)">
+  
+  <h1>Mes Followers</h1>
+  
+  <user-list
+    [users]="this.profileService.profile.resolvedFollowers"
+    [isLoading]="!this.profileService.isLoaded">
+  </user-list>
+  
+</div>

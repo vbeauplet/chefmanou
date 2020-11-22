@@ -1,0 +1,15 @@
+<h1
+  style="margin-bottom:40px">
+  Mes Brouillons
+</h1>
+
+<recipe-list
+  [isLoading]="!this.areDraftRecipesLoaded"
+  [recipes]="this.draftRecipes"
+  [clickToEdit]="true">
+</recipe-list>
+
+<div
+  *ngIf="this.areDraftRecipesLoaded && this.draftRecipes.length == 0">
+  Aucune recette trouvée
+</div>

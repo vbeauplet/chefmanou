@@ -1,0 +1,54 @@
+<nuki-card
+  style="margin-bottom:20px"
+  [imageSrc]="'https://firebasestorage.googleapis.com/v0/b/chefmanou-1705a.appspot.com/o/images%2Favatar_default.png?alt=media&token=34df0a7d-6f23-4b5f-93ea-8472b7bb6d18'"
+  [size]="'big'">
+  
+  <h2>Se connecter</h2>
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <div 
+      class="form-group">
+      <label 
+        for="email">
+        Adresse mail
+      </label>
+      <input 
+        style="margin-left:10px"
+        type="text"
+        id="email"
+        class="form-input"
+        formControlName="email">
+    </div>
+    <div 
+      class="form-group">
+      <label 
+        for="password">
+        Mot de passe
+      </label>
+      <input 
+        style="margin-left:10px"
+        type="password"
+        id="password"
+        class="form-input"
+        formControlName="password">
+    </div>
+    <button 
+      class="btn sign-button"
+      type="submit"
+      [disabled]="signinForm.invalid">
+      Connexion
+    </button>
+  </form>
+  <p 
+    class="text-danger">
+    {{ errorMessage }}
+  </p>
+  <p>
+    Pas encore de compte ? 
+    <a routerLink="/auth/signup">S'inscrire</a>
+  </p>
+  
+</nuki-card>
+
+
+
+

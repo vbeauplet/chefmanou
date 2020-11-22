@@ -1,0 +1,57 @@
+<recipe-card
+  [isLoading]="!this.recipeService.isLoaded"
+  [recipe]="this.recipeService.recipe"
+  [size]="'xbig'"
+  [imageAttribute]="'imageUrl'"
+  [imageShape]="'rectangle'"
+  [hasOverlay]="true"
+  [displayAllTags]="true">
+</recipe-card>
+
+<div
+  *ngIf="this.recipeService.isLoaded"
+  class="recipe-controls col-dir hor-left flex-block">
+  
+  <stateful-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'6'"
+    [label]="'Ajouter en favori'"
+    [labelPosition]="'right'"
+    [status]="-1">
+  </stateful-button>
+  
+  <stateful-button
+    *ngIf="
+      this.profileService.isLoaded 
+      && this.recipeService.recipe.admins.includes(this.profileService.profile.user.userId)"
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'&'"
+    [label]="'Editer la recette'"
+    [labelPosition]="'right'"
+    [status]="this.editRecipeButtonStatus"
+    (click)="this.onClickEdit()">
+  </stateful-button>
+  
+  <neumorphic-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'('"
+    [label]="'Revenir au recettes'"
+    [labelPosition]="'right'"
+    (click)="this.onClickBack()">
+  </neumorphic-button>
+  
+</div>  
+
+
+<div
+  *ngIf="this.recipeService.isLoaded"
+  class="secondary-content">
+  <div
+    style="text-align:justify;"
+    [innerHTML]="this.recipeService.recipe.content">
+  </div>
+  
+</div>

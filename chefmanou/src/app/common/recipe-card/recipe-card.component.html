@@ -1,0 +1,82 @@
+<!-- Display loader if card is loading -->
+<loader
+  style="margin-bottom:50px;margin-top:50px;"
+  *ngIf="this.isLoading">
+</loader>
+
+  <!-- Card body: an image and the content after -->
+<div
+  *ngIf="!this.isLoading"
+  class="full col-dir hor-center flex-block">
+    
+  <active-image
+    *ngIf="this.recipe[this.imageAttribute] !== null && this.recipe[this.imageAttribute] !== ''"
+    [hasOverlay]="this.hasOverlay"
+    [hasUploadButton]="false"
+    [imageSrc]="this.recipe[this.imageAttribute]"
+    [size]="'full'"
+    [shape]="this.imageShape">
+  </active-image>
+  
+  <div
+    class="margined small title recipe-card-title">
+    <span>{{this.recipe.name}}</span>
+  </div>
+  
+  <div
+    class="show-more-tags-button-container near-full row-dir hor-space-between flex-block">
+    <div></div>
+    <div
+      *ngIf="this.displayShowMoreTagsButton"
+      class="show-more-tags-button"
+      (click)="$event.stopPropagation();this.areTagsUnwrapped=true;this.displayShowMoreTagsButton=false;">
+      ...
+    </div>
+  </div>
+  
+  <div
+    id="{{ this.recipe.id }}_tags"
+    class="recipe-card-tags margined near-full row-dir hor-center flex-block"
+    [class.unwrapped]="this.areTagsUnwrapped">
+    <div
+      *ngFor="let tag of this.recipe.tags"
+      class="recipe-card-tag"
+      (click)="$event.stopPropagation();this.clickOnTag(tag)">
+      {{ tag }}
+    </div>
+  </div>
+  
+  <div
+    class="recipe-info">
+    Crée le:
+    {{ this.recipe.created | date:"dd/MM/yyyy" }}
+  </div>
+  
+  <user-miniature
+    *ngIf="this.recipe.isAuthorResolved"
+    [user]="this.recipe.resolvedAuthor"
+    [size]="'near-full'"
+    [miniatureStyle]="'transparent'"
+    (click)="$event.stopPropagation();clickOnUser(this.recipe.resolvedAuthor)">
+  </user-miniature>
+  <div
+    *ngIf="!this.recipe.isAuthorResolved"
+    class="user-miniature-placeholder">
+  </div>
+  
+  <div
+    class="recipe-info row-dir vert-center flex-block">
+    <square-icon
+      [icon]="'M'"
+      [size]="20">
+    </square-icon>
+    <div
+      style="margin-left:20px;">
+      {{ this.recipe.views }}
+    </div>
+  </div>
+  
+  <ng-content></ng-content>
+    
+</div>
+

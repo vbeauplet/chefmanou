@@ -1,0 +1,17 @@
+:host ::ng-deep .ck-editor__editable {
+  min-height: 300px;
+  color:var(--main-content-color)!important;
+}
+
+:host ::ng-deep .ck-editor__editable.ck-focused {
+  border-color: var(--outline-content-color)!important;
+}
+
+.ckeditor{
+  width:100%;
+}
+
+.recipe-controls{
+  margin-top:30px;
+  margin-bottom:30px;
+}

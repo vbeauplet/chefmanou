@@ -1,0 +1,37 @@
+<!-- Placeholder, for positionning purposes  -->
+<div 
+  class="miniature-placeholder">
+</div>
+
+<!-- Label, Miniature content -->
+<div
+  class="miniature-text-container col-dir flex-block miniature-content">
+  
+  <!-- Recipe Title -->
+  <div
+    class="miniature-title">
+    {{ this.recipe.name }}
+  </div>
+  
+  <!-- Tags -->
+  <div
+    class="recipe-miniature-tags">
+    
+    <span
+      *ngFor="let tag of this.recipe.tags"
+      class="recipe-miniature-tag"
+      (click)="$event.stopPropagation();onClickTag(tag)">
+      {{ tag }}
+    </span>
+    
+  </div>
+  
+</div>
+
+<!-- Miniature photo -->
+<img 
+  [src]="this.recipe.miniatureImageUrl" 
+  class="miniature-photo"
+  [ngStyle]="{
+    'width': this.height + 'px',
+    'height': this.height + 'px'}"/>
