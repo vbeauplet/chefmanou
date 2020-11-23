@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { RecipeService } from './recipe.service';
 import { UserService } from './user.service';
 
-import { Event } from "../model/event.model";
+import * as firebase from 'firebase';
 
+import { Event, eventConverter } from "../model/event.model";
 import { User } from '../model/user.model';
 import { Recipe } from '../model/recipe.model';
 
@@ -37,4 +38,33 @@ export class EventService {
         });
     }
   }
+  
+  /**
+   * Uploads a particular event within a particular user activity
+   * Will appear as an event into the provided user timeline
+   */
+  public uploadEventOnServer(event: Event, forUser: string){
+    const eventCollectionRef = this.computeEventCollectionRef(forUser);
+    const newEventDoc = firebase.firestore().collection(eventCollectionRef).doc(event.id);
+    newEventDoc.withConverter(eventConverter).set(event);
+  }
+  
+  /**
+   * Uploads a particular event within for multiple users
+   * Will appear as an event into the provided users timeline
+   */
+  public uploadEventsOnServer(event: Event, forUsers: string[]){
+    for(let i = 0; i = forUsers.length; i++){
+      this.uploadEventOnServer(event, forUsers[i]);
+    }
+  }
+  
+  /**
+   * Compute firestore reference of the event collection for a particular user
+   */
+  public computeEventCollectionRef(userId: string): string{
+    return 'users/' + userId + '/events';
+  }
+  
+  
 }

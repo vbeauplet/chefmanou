@@ -14,8 +14,8 @@ export class Event {
   /**
    * Code which determines the event type
    * Mapping:
-   * - 700: Recipe Creation by cooker
-   * - 701: Recipe Creation by self
+   * - 700: Recipe Publication by cooker
+   * - 701: Recipe Publication by self
    * - 702: Recipe Modification by cooker
    * - 703: Recipe modification by self
    * - 704: Self Recipe added as favorite by cooker
