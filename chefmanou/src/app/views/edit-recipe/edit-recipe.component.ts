@@ -4,11 +4,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { UploadAdapter } from './upload-adapter';
  
+import { Event } from "../../model/event.model";
+
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as firebase from 'firebase';
 import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeDashboardService } from 'src/app/services/recipe-dashboard.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { EventService } from 'src/app/services/event.service';
 
 
 @Component({
@@ -52,6 +55,7 @@ export class EditRecipeComponent implements OnInit {
   constructor(public recipeService: RecipeService,
               public recipeDashboardService: RecipeDashboardService,
               public profileService: ProfileService,
+              private eventService: EventService,
               private route: ActivatedRoute,
               private router: Router) { }
 
@@ -133,6 +137,9 @@ export class EditRecipeComponent implements OnInit {
     if(this.recipeDraftFlagStatus === -1){
       let that = this;
       
+      // Record initial draft flag
+      const wasDraft = this.recipeService.recipe.draft;
+      
       // Signal waiting
       that.recipeDraftFlagStatus = 0;
       
@@ -147,12 +154,18 @@ export class EditRecipeComponent implements OnInit {
             // Refresh Recipe dashboard
             that.refreshRecipeDashboard();
             
+            // Create associated publication events
+            if(wasDraft){
+              that.createRecipePublicationEvents();
+            }
+            
             // Release status after the 3 second validation time span
             setTimeout(() => {
               that.recipeDraftFlagStatus = -1;
                
               // Recompute button label
               that.recipeDraftFlagButtonLabel = (that.recipeService.recipe.draft)?'Publier la recette':'Mettre en brouillon';
+            
             
             }, 3000);
           })
@@ -182,8 +195,30 @@ export class EditRecipeComponent implements OnInit {
    * Refreshes the recipe dahboard
    */
   public refreshRecipeDashboard(){
-    console.log('REFRESH RECIPE DASHBOARD');
     this.recipeDashboardService.refresh();
+  }
+  
+  /**
+   * Create events on database corresponding to the recipe publication
+   */
+  public createRecipePublicationEvents(){
+    if(this.profileService.isLoaded && this.recipeService.isLoaded){
+      
+      // Create recipe publication events for followers
+      let event = new Event()
+      event.init();
+      event.code = 700;
+      event.userRef = this.profileService.profile.user.userId;
+      event.recipeRef = this.recipeService.recipe.id;
+      this.eventService.uploadEventsOnServer(event, this.profileService.profile.user.followers);
+      
+      // Create publication evetn for my own recipe
+      let selfEvent = new Event()
+      selfEvent.init();
+      selfEvent.code = 701;
+      selfEvent.recipeRef = this.recipeService.recipe.id;
+      this.eventService.uploadEventOnServer(selfEvent, this.profileService.profile.user.userId);
+    }
   }
   
 }
