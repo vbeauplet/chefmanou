@@ -210,6 +210,7 @@ export class EditRecipeComponent implements OnInit {
       event.code = 700;
       event.userRef = this.profileService.profile.user.userId;
       event.recipeRef = this.recipeService.recipe.id;
+      console.log(event);
       this.eventService.uploadEventsOnServer(event, this.profileService.profile.user.followers);
       
       // Create publication evetn for my own recipe
@@ -217,6 +218,7 @@ export class EditRecipeComponent implements OnInit {
       selfEvent.init();
       selfEvent.code = 701;
       selfEvent.recipeRef = this.recipeService.recipe.id;
+      console.log(selfEvent);
       this.eventService.uploadEventOnServer(selfEvent, this.profileService.profile.user.userId);
     }
   }

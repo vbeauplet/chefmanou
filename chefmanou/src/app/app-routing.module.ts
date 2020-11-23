@@ -10,6 +10,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { KitchenComponent } from './views/kitchen/kitchen.component';
 import { DraftComponent } from './views/draft/draft.component';
 import { AuthGuardService } from './auth/services/auth-guard.service';
+import { ActivityComponent } from './views/activity/activity.component';
 
  
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },
   { path: 'user/follow', canActivate: [AuthGuardService], component: FollowUserComponent },
   { path: 'kitchen', canActivate: [AuthGuardService], component: KitchenComponent },
+  { path: 'activity', canActivate: [AuthGuardService], component: ActivityComponent },
   { path: 'draft', canActivate: [AuthGuardService], component: DraftComponent },
   { path: 'recipe/edit/:id', canActivate: [AuthGuardService], component: EditRecipeComponent },
   { path: 'recipe/:id', canActivate: [AuthGuardService], component: RecipeComponent },
