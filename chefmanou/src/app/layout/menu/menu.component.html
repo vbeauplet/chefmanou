@@ -25,6 +25,12 @@
     *ngIf="this.isAuth"
     class ="near-full col-dir hor-center flex-block page-menu-container">
     
+    <neumorphic-button
+      [icon]="'ï'"
+      [shape]="'round'"
+      (click)="this.onClickHome();this.emitCloseMenu()">
+    </neumorphic-button>
+    
     <active-image
       *ngIf="isAuth && this.profileService.isLoaded"
       style="cursor:pointer"

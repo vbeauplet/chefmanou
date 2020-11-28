@@ -47,6 +47,7 @@ import { ShapeBlockComponent } from './common/shape-block/shape-block.component'
 import { KitchenFilterComponent } from './views/kitchen/kitchen-filter/kitchen-filter.component';
 import { NukiCardComponent } from './common/nuki-card/nuki-card.component';
 import { DraftComponent } from './views/draft/draft.component';
+import { ActivityComponent } from './views/activity/activity.component';
 
 @NgModule({ 
   declarations: [
@@ -84,6 +85,7 @@ import { DraftComponent } from './views/draft/draft.component';
     KitchenFilterComponent,
     NukiCardComponent,
     DraftComponent,
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,

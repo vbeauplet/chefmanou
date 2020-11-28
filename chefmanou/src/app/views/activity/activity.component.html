@@ -1,0 +1,18 @@
+<!-- Loader if not loaded yet -->
+<loader
+  *ngIf="!this.activityService.isLoaded">
+</loader>
+
+<!-- Else display events -->
+<div
+  *ngIf="this.activityService.isLoaded">
+  <div
+    *ngFor="let event of this.activityService.events">
+    
+    Ma nouvelle recette a été publiée !
+    <recipe-card
+      *ngIf="(event.code == 700 || event.code == 701) && event.isRecipeResolved"
+      [recipe]="event.resolvedRecipe">
+    </recipe-card>
+  </div>
+</div>

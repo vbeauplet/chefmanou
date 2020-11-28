@@ -64,6 +64,14 @@ export class MenuComponent implements OnInit {
   }
   
   /**
+   * Handles click on hoem button
+   */
+  public onClickHome() {
+    this.router.navigate(['activity']);
+  }
+  
+  
+  /**
    * Handles click on recipe
    */
   public onClickRecipe(recipe: Recipe) {
