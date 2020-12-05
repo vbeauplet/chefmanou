@@ -3,7 +3,7 @@
   <h1>Ma carte de cuisinier</h1>
   
   <div
-    class="xbig row-dir vert-center padded hor-left outlined container-block profile-card">
+    class="xbig row-dir vert-center padded hor-center outlined container-block profile-card">
     
     <outlined-active-image
       style="margin:20px"
@@ -17,7 +17,7 @@
     </outlined-active-image>
     
     <div
-      class="profile-details col-dir hor-left flex-block">
+      class="profile-details col-dir hor-center flex-block">
       
       <interactive-input
         [inputId]="'profile-name-input'"
@@ -39,6 +39,24 @@
         [enableSearchTermUpdate]="true">
       </interactive-input>
       
+      
+      <div style="margin-top:30px;">
+        <b>Theme</b>
+      </div>
+        
+      <color-picker
+        *ngIf="this.profileService.isLoaded"
+        [alignment]="'center'"
+        [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
+        [sdbProperty]="'theme'"
+        [initialItems]="this.initialThemeColorItems"
+        [initialSelectedItems]="[this.getInitialSelectedThemeColorItem()]">
+      </color-picker>
+      
+      <div style="margin-top:30px;">
+        <b>Stats</b>
+      </div>
+      
       <div style="margin-top:30px;">
         {{ this.userService.retrieveFollowingsNb(this.profileService.profile.user) }} cuisiniers suivis
       </div>
@@ -51,16 +69,18 @@
         class="user-element full row-dir hor-center vert-center flex-block">
         
         <neumorphic-button
+          style="margin-left:5px;margin-right:5px;"
           [icon]="'U'"
           [size]="40"
-          title="Déconnexion"
+          [label]="'Déconnexion'"
           (click)="this.onSignOut()">
         </neumorphic-button>
         
         <neumorphic-button
+          style="margin-left:5px;margin-right:5px;"
           [size]="40"
           [icon]="'l'"
-          title="Mes recettes"
+          [label]="'Mes Recettes'"
           (click)="this.onClickSeeRecipes()">
         </neumorphic-button>
     
