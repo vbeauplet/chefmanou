@@ -130,6 +130,8 @@ a {
   
   width:85%;
   
+  color: var(--main-content-color);
+  
   display:flex;
   flex-direction:column;
   justify-content: center;
@@ -359,9 +361,9 @@ a {
   outline:none;
   
   border-radius: 8px;
-  background: #e2e9ee;
-  box-shadow: inset 2px 2px 5px #c9cfd4, 
-              inset -2px -2px 5px #fbffff;
+  background: var(--main-bg-color);
+  box-shadow: inset 2px 2px 5px var(--sharp-dark-shadow-color), 
+              inset -2px -2px 5px var(--sharp-light-shadow-color);
 }
 
   .form-input.medium{
