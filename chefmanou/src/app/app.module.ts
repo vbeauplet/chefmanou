@@ -44,6 +44,7 @@ import { NukiCardComponent } from './common/nuki-card/nuki-card.component';
 import { DraftComponent } from './views/draft/draft.component';
 import { ActivityComponent } from './views/activity/activity.component';
 import { ColorPickerComponent } from './common/color-picker/color-picker.component';
+import { AlertComponent } from './layout/alert/alert.component';
 
 @NgModule({ 
   declarations: [
@@ -55,6 +56,7 @@ import { ColorPickerComponent } from './common/color-picker/color-picker.compone
     EditRecipeComponent,
     HamburgerComponent,
     MenuComponent,
+    AlertComponent,
     CardComponent,
     UserCardComponent,
     LoaderComponent,
