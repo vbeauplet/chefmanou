@@ -21,6 +21,7 @@ export const userConverter = {
             followings: user.followings,
             pinnedRecipe: user.pinnedRecipe,
             latestRecipes: user.latestRecipes,
+            theme: user.theme
           }
     },
     fromFirestore: function(snapshot: any, options: any){
@@ -41,6 +42,7 @@ export const userConverter = {
         user.followings = data.followings;
         user.pinnedRecipe = data.pinnedRecipe;
         user.latestRecipes = data.latestRecipes;
+        user.theme = data.theme;
         return user;
     }
 }

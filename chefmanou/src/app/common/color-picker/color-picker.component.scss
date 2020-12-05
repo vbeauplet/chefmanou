@@ -1,0 +1,33 @@
+.color-picker-item {
+  cursor:pointer;
+}
+
+  .color-picker-item:hover .color-picker-item-circle-container{
+    border: solid var(--outline-content-color) 2px;
+  }
+  
+  .color-picker-item:hover .color-picker-item-label{
+    color: var(--outline-content-color);
+  }
+  
+  .color-picker-item.selected .color-picker-item-circle-container{
+    border: solid var(--outline-content-color) 2px;
+  }
+  
+  .color-picker-item.selected .color-picker-item-label{
+    color: var(--outline-content-color);
+  }
+  
+.color-picker-item-circle-container {
+  border: solid transparent 2px;
+  border-radius:50%;
+  overflow:hidden;
+}  
+
+.color-picker-item-circle {
+  border-radius:50%;
+}
+
+.color-picker-inner-circle {
+  border-radius:50%;
+}

@@ -8,7 +8,7 @@ import { UserService, userConverter } from './user.service';
 import * as firebase from 'firebase';
 import { User } from '../model/user.model';
 import { Recipe, recipeConverter } from '../model/recipe.model';
-import { RecipeService } from './recipe.service';
+import { ThemeService } from '../layout/services/theme.service';
 
 /**
  * Gathers all services and observables related to the profile of currently logged user.
@@ -43,6 +43,7 @@ export class ProfileService {
    * Buildsthe ProfileService, subscribing to the needed observable
    */
   constructor(
+    private themeService: ThemeService,
     private authService: AuthService, 
     private userService: UserService) { 
     
@@ -72,6 +73,9 @@ export class ProfileService {
            * Websocket: at each reference node change, this code is played
            */           
           that.profile.user = doc.data();
+          
+          // Apply theme (only if changed)
+          that.themeService.changeTheme(that.profile.user.theme);
           
           // Aditionally resolve followers and following Users
           that.userService.getFollowersOnServer(that.profile.user).then(

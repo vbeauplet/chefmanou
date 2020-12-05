@@ -63,6 +63,11 @@ export class User {
    */
   public latestRecipes: string[] = [];
   
+  /**
+   * User theme
+   */
+  public theme: string = 'light';
+  
 
   constructor() {
     // Nothing to do here

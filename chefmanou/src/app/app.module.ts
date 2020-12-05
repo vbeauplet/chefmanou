@@ -11,12 +11,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { LayoutComponent } from './layout/layout.component';
 import { RecipeComponent } from './views/recipe/recipe.component';
-import { AuthService } from './auth/services/auth.service';
 import { AuthGuardService } from './auth/services/auth-guard.service';
-import { UserService } from './services/user.service';
-import { RecipeService } from './services/recipe.service';
-import { UploadService } from './services/upload.service';
-import { RecipeDashboardService } from './services/recipe-dashboard.service';
 import { EditRecipeComponent } from './views/edit-recipe/edit-recipe.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HamburgerComponent } from './layout/hamburger/hamburger.component';
@@ -48,6 +43,7 @@ import { KitchenFilterComponent } from './views/kitchen/kitchen-filter/kitchen-f
 import { NukiCardComponent } from './common/nuki-card/nuki-card.component';
 import { DraftComponent } from './views/draft/draft.component';
 import { ActivityComponent } from './views/activity/activity.component';
+import { ColorPickerComponent } from './common/color-picker/color-picker.component';
 
 @NgModule({ 
   declarations: [
@@ -86,6 +82,7 @@ import { ActivityComponent } from './views/activity/activity.component';
     NukiCardComponent,
     DraftComponent,
     ActivityComponent,
+    ColorPickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +93,8 @@ import { ActivityComponent } from './views/activity/activity.component';
     CKEditorModule,
     NoopAnimationsModule
   ],
-  providers: [AuthGuardService, AuthService, UserService, RecipeService, RecipeDashboardService, UploadService],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
