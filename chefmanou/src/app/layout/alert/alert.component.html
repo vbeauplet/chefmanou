@@ -1,0 +1,34 @@
+<div
+  class="hor-center col-dir flex-block alert-container">
+
+  <div
+    *ngFor="let alertEntry of this.alerts | keyvalue"
+    class="big padded margined col-dir hor-center flex-block alert"
+    [class.transitory]="alertEntry.value.transitory"
+    [class.warning]="alertEntry.key.severity == 2"
+    [class.error]="alertEntry.key.severity == 3">
+    
+    <div
+      class="alert-message"
+      [ngStyle]="{
+          'margin-bottom': (alertEntry.key.proposals.length != 0)?'15px':'0px'
+        }">
+      {{ alertEntry.key.message }}
+    </div>
+    
+    <div
+      class="row-dir vert-center flex-block alert-controls">
+      
+      <neumorphic-button
+        *ngFor="let proposal of alertEntry.key.proposals"
+        [icon]="proposal.icon"
+        [label]="proposal.label"
+        [color]="proposal.color"
+        (click)="this.onClickProposal(alertEntry.key, proposal)">
+      </neumorphic-button>
+      
+    </div>
+    
+  </div>
+
+</div>

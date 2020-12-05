@@ -1,0 +1,27 @@
+.alert-container{
+  position:fixed;
+  z-index: 1000;
+}
+
+.alert{
+  background-color: var(--main-bg-color);
+  border: solid var(--main-content-color) 1px;
+  box-shadow: 0px 0px 8px 8px var(--light-shadow-color);
+  
+  color:var(--main-content-color);
+  
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+  .alert.warning{
+    border: solid var(--neutral-content-color) 1px;
+  }
+  
+  .alert.error{
+    border: solid var(--failure-content-color) 1px;
+  }
+
+  .alert.transitory{
+    opacity: 0;
+  }

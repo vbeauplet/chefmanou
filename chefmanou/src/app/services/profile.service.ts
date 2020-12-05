@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 import { User } from '../model/user.model';
 import { Recipe, recipeConverter } from '../model/recipe.model';
 import { ThemeService } from '../layout/services/theme.service';
+import { AlertService } from '../layout/services/alert.service';
 
 /**
  * Gathers all services and observables related to the profile of currently logged user.
@@ -43,6 +44,7 @@ export class ProfileService {
    * Buildsthe ProfileService, subscribing to the needed observable
    */
   constructor(
+    private alertService: AlertService,
     private themeService: ThemeService,
     private authService: AuthService, 
     private userService: UserService) { 
@@ -145,7 +147,13 @@ export class ProfileService {
    */
   public follow(userToFollow: User){
     // Add selected user to followings
-    this.userService.addFollowingOnServer(this.profile.user, userToFollow);
+    this.userService.addFollowingOnServer(this.profile.user, userToFollow)
+      .then(() => {
+          console.log('adding user'); 
+        
+          // Alert user cooker has been added
+          this.alertService.raiseInfo(userToFollow.name + ' a été ajouté à vos cuisiniers')
+        });
     this.userService.addFollowerOnServer(userToFollow, this.profile.user);
   }
   
@@ -154,9 +162,15 @@ export class ProfileService {
    * Removes from profile kitchen a particular user
    */
   public unfollow(userToFollow: User){
-    // Add selected user to followings
-    this.userService.removeFollowingOnServer(this.profile.user, userToFollow);
-    this.userService.removeFollowerOnServer(userToFollow, this.profile.user);
+    this.alertService.raiseConfirmationAlert('Voulez-vous vraiment enlever ' + userToFollow.name + ' de vos cuisiniers ?', 2)
+      .then((response:string) => {
+          if(response == 'accept'){
+            
+            // REmove user from folowings ones
+            this.userService.removeFollowingOnServer(this.profile.user, userToFollow);
+            this.userService.removeFollowerOnServer(userToFollow, this.profile.user);
+          }
+        });
   }
   
   /**
