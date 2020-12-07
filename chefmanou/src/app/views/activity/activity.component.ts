@@ -3,7 +3,7 @@ import { ActivityService } from 'src/app/services/activity.service';
 
 @Component({
   selector: 'app-activity',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
 })

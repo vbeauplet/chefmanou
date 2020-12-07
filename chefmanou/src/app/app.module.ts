@@ -15,7 +15,6 @@ import { AuthGuardService } from './auth/services/auth-guard.service';
 import { EditRecipeComponent } from './views/edit-recipe/edit-recipe.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HamburgerComponent } from './layout/hamburger/hamburger.component';
-import { MenuComponent } from './layout/menu/menu.component';
 import { CardComponent } from './common/card/card.component';
 import { UserCardComponent } from './common/user-card/user-card.component'; 
 import { LoaderComponent } from './common/loader/loader.component';
@@ -45,6 +44,9 @@ import { DraftComponent } from './views/draft/draft.component';
 import { ActivityComponent } from './views/activity/activity.component';
 import { ColorPickerComponent } from './common/color-picker/color-picker.component';
 import { AlertComponent } from './layout/alert/alert.component';
+import { MobileMenuComponent } from './layout/mobile-menu/mobile-menu.component';
+import { NewRecipeComponent } from './views/new-recipe/new-recipe.component';
+import { HistoryComponent } from './views/history/history.component';
 
 @NgModule({ 
   declarations: [
@@ -55,7 +57,6 @@ import { AlertComponent } from './layout/alert/alert.component';
     RecipeComponent,
     EditRecipeComponent,
     HamburgerComponent,
-    MenuComponent,
     AlertComponent,
     CardComponent,
     UserCardComponent,
@@ -85,6 +86,9 @@ import { AlertComponent } from './layout/alert/alert.component';
     DraftComponent,
     ActivityComponent,
     ColorPickerComponent,
+    MobileMenuComponent,
+    NewRecipeComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

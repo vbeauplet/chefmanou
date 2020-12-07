@@ -10,7 +10,7 @@ import { ColorItem } from 'src/app/common/color-picker/color-picker.component';
 
 @Component({
   selector: 'app-profile',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })

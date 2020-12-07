@@ -1,0 +1,130 @@
+:host{
+  z-index:1000;
+  
+  position:fixed;
+  left:0px;
+  height:100%;
+  min-height:100%;
+  
+  display:flex;
+  flex-direction:row-reverse;
+  justify-content:flex-start;
+  align-items:flex-start;
+  
+  background: linear-gradient(to left, transparent 0px, var(--menu-bg-color) 50px);
+  
+  padding-right:50px;
+}
+
+.menu-item-container{
+  padding-top:20px;
+  padding-left:20px;
+  padding-right:20px;
+  
+  display:flex;
+  flex-wrap:nowrap;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+}
+
+.menu-item{
+  cursor:pointer;
+  
+  margin-bottom:10px;
+}
+
+.menu-subitem-container{
+  padding-top:20px;
+  padding-right:5px;
+  padding-left:5px;
+  
+  margin-left:20px;
+  
+  display:flex;
+  flex-wrap:nowrap;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:flex-start;
+}
+
+.menu-subitem{
+  cursor:pointer;
+  padding:7px;
+}
+
+.menu-subitem-label{
+  margin-left:20px;
+  width:50%;
+}
+
+
+@media all and (max-width: 800px)  {
+
+  :host{
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+  
+    left:unset;
+    height:unset;
+    min-height:unset;
+    
+    bottom:0px;
+    width:100%;
+    
+    background: linear-gradient(to bottom, transparent 0px, var(--menu-bg-color) 50px);
+    
+    padding-top:50px;
+    padding-right:0px;
+  }
+  
+  .menu-item-container{
+    width:100%;
+    
+    padding-left:0px;
+    padding-right:0px;
+    padding-top:5px;
+    padding-bottom:5px;
+    
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+  }
+  
+  .menu-item{
+    cursor:pointer;
+    
+    margin-bottom:0px;
+  }
+  
+  .menu-subitem-container{
+    width:100%;
+    
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:10%;
+    padding-right:0px;
+    
+    margin-bottom:20px;
+    
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-start;
+  }
+  
+  .menu-subitem{
+    cursor:pointer;
+    width:100%;
+    padding:7px;
+  }
+  
+  .menu-subitem-label{
+    margin-left:20px;
+    width:50%;
+  }
+}

@@ -11,6 +11,8 @@ import { KitchenComponent } from './views/kitchen/kitchen.component';
 import { DraftComponent } from './views/draft/draft.component';
 import { AuthGuardService } from './auth/services/auth-guard.service';
 import { ActivityComponent } from './views/activity/activity.component';
+import { NewRecipeComponent } from './views/new-recipe/new-recipe.component';
+import { HistoryComponent } from './views/history/history.component';
 
  
 
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'user/follow', canActivate: [AuthGuardService], component: FollowUserComponent },
   { path: 'kitchen', canActivate: [AuthGuardService], component: KitchenComponent },
   { path: 'activity', canActivate: [AuthGuardService], component: ActivityComponent },
+  { path: 'history', canActivate: [AuthGuardService], component: HistoryComponent },
   { path: 'draft', canActivate: [AuthGuardService], component: DraftComponent },
+  { path: 'recipe/new', canActivate: [AuthGuardService], component: NewRecipeComponent },
   { path: 'recipe/edit/:id', canActivate: [AuthGuardService], component: EditRecipeComponent },
   { path: 'recipe/:id', canActivate: [AuthGuardService], component: RecipeComponent },
   { path: '', redirectTo: 'kitchen', pathMatch: 'full' },

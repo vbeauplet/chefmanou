@@ -16,7 +16,7 @@ import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'edit-recipe-view',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './edit-recipe.component.html',
   styleUrls: ['./edit-recipe.component.scss']
 })

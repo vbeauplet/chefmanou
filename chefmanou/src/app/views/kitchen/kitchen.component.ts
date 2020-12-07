@@ -7,7 +7,7 @@ import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-kitchen',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './kitchen.component.html',
   styleUrls: ['./kitchen.component.scss']
 })

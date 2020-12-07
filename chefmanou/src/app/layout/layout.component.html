@@ -1,16 +1,3 @@
-<header>
-  <hamburger
-    [status]="this.displayMenu"
-    (on)="onOnHamburger()"
-    (off)="onOffHamburger()">
-  </hamburger>
-  <div id="header-placeholder">
-  </div>
-  <div class="header-placeholder">
-  </div>
-</header>
-      
-<menu
-  (closeMenu)="this.displayMenu = false;"
-  [wrapped]="!this.displayMenu">
-</menu>
+<alert></alert>
+
+<mobile-menu></mobile-menu>

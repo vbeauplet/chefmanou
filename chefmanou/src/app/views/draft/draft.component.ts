@@ -8,7 +8,7 @@ import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-draft',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './draft.component.html',
   styleUrls: ['./draft.component.scss']
 })
