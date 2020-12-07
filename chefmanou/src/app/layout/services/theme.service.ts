@@ -9,6 +9,7 @@ export interface Theme {
   elementBgColor: string,
   secondaryBgColor: string,
   menuBgColor: string,
+  transparentBgColor: string,
   
   mainContentColor: string,
   secondaryContentColor: string,
@@ -40,7 +41,8 @@ export class ThemeService {
     mainBgPattern: 'url("./assets/img/food_pattern.png")',
     elementBgColor: '#e2e9ee',
     secondaryBgColor: '#2F7045',
-    menuBgColor: 'white',
+    menuBgColor: '#e2e9ee',
+    transparentBgColor: 'rgba(255,255,255,0.4)',
     
     mainContentColor: '#212529',
     secondaryContentColor: 'white',
@@ -67,7 +69,8 @@ export class ThemeService {
     mainBgPattern: 'none',
     elementBgColor: '#192F01',
     secondaryBgColor: '#DED369',
-    menuBgColor: 'black',
+    menuBgColor: '#192F01',
+    transparentBgColor: 'rgba(0,0,0,0.3)',
     
     mainContentColor: '#F8EFEA',
     secondaryContentColor: '#212529',
@@ -94,7 +97,8 @@ export class ThemeService {
     mainBgPattern: 'url("./assets/img/food_pattern_dark.png")',
     elementBgColor: '#31383f',
     secondaryBgColor: '#8CBDB9',
-    menuBgColor: 'black',
+    menuBgColor: '#31383f',
+    transparentBgColor: 'rgba(0,0,0,0.3)',
     
     mainContentColor: '#F2E9EB',
     secondaryContentColor: '#212529',
@@ -174,6 +178,7 @@ export class ThemeService {
     document.documentElement.style.setProperty('--element-bg-color', theme.elementBgColor);
     document.documentElement.style.setProperty('--secondary-bg-color', theme.secondaryBgColor);
     document.documentElement.style.setProperty('--menu-bg-color', theme.menuBgColor);
+    document.documentElement.style.setProperty('--transparent-bg-color', theme.transparentBgColor);
     
     document.documentElement.style.setProperty('--main-content-color', theme.mainContentColor);
     document.documentElement.style.setProperty('--secondary-content-color', theme.secondaryContentColor);

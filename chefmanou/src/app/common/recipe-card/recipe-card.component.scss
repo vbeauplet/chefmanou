@@ -26,11 +26,11 @@
   margin:4px;
   padding:2px;
   
-  background-color: rgba(0,0,0,0.04);
+  background-color: var(--transparent-bg-color);
 }
 
   .show-more-tags-button:hover {
-    background-color: rgba(0,0,0,0.1);
+    background-color: var(--outline-content-color);
   }
 
 .recipe-card-tags{
@@ -51,7 +51,7 @@
   
   margin:4px;
   padding:2px;
-  background-color: rgba(0,0,0,0.07);
+  background-color: var(--transparent-bg-color);
 }
 
   .recipe-card-tag:hover {
