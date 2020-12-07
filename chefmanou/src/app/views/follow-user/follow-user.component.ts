@@ -8,7 +8,7 @@ import { Profile } from 'src/app/model/profile.model';
 
 @Component({
   selector: 'follow-user',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './follow-user.component.html',
   styleUrls: ['./follow-user.component.scss']
 })

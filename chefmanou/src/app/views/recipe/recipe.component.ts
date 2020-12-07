@@ -5,7 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'recipe-view',
-  host: { 'class' : 'margined-top page'},
+  host: { 'class' : 'page'},
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.scss']
 })
