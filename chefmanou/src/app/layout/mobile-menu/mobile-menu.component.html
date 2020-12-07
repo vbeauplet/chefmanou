@@ -1,0 +1,52 @@
+<!-- Container for the submenu, if a submenu is unwrapped -->
+<div
+  *ngIf="this.authService.authInfos.isAuth && this.menuService.unwrappedMenuItem !== null"
+  class="menu-subitem-container">
+  
+  <div
+    *ngFor="let subMenuItem of this.menuService.unwrappedMenuItem.subItems"
+    class="row-dir vert-center hor-left flex-block menu-subitem"
+    (click)="this.menuService.selectMenuItem(subMenuItem)">
+    
+    <square-icon
+      [icon]="subMenuItem.icon"
+      [color]="(this.menuService.selectedMenuItem == subMenuItem)?'outline':'main'"
+      [size]="25">
+    </square-icon>
+    
+    <div
+      class="main-content-element menu-subitem-label"
+      [class.outline-content-element]="this.menuService.selectedMenuItem == subMenuItem">
+      {{ subMenuItem.label }}
+    </div>
+    
+  </div>
+  
+</div>
+
+
+<!-- Container for the main menu item -->
+<nav
+  *ngIf="this.authService.authInfos.isAuth"
+  class="menu-item-container">
+  
+  <div
+    *ngFor="let menuItem of this.menuService.menuItems"
+    class="col-dir hor-center flex-block menu-item"
+    (click)="this.menuService.selectMenuItem(menuItem)">
+    
+    <square-icon
+      [icon]="menuItem.icon"
+      [color]="(this.menuService.selectedMenuItem == menuItem)?'outline':'main'"
+      [size]="40">
+    </square-icon>
+    
+    <div
+      class="main-content-element menu-item-label"
+      [class.outline-content-element]="this.menuService.selectedMenuItem == menuItem">
+      {{ menuItem.label }}
+    </div>
+    
+  </div>
+  
+</nav>
