@@ -23,7 +23,7 @@
       [imageUrlSdbProperty]="'imageUrl'"
       [miniatureImageUrlSdbProperty]="'miniatureImageUrl'"
       [imageSrc]="this.recipeService.recipe.imageUrl"
-      (changeImage)="this.refreshRecipeDashboard();this.profileService.refreshLatestRecipes();">
+      (changeImage)="this.onRecipeModification()">
     </active-image>
 
     <interactive-input
@@ -35,7 +35,7 @@
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'name'"
       [enableSearchTermsUpdate]="true"
-      (onSuccess)="this.refreshRecipeDashboard();this.profileService.refreshLatestRecipes();">
+      (onSuccess)="this.onRecipeModification()">
     </interactive-input>
 
     <div 
@@ -57,8 +57,7 @@
       Tags
     </div>
     
-    <string-picker 
-      style="margin-bottom:40px;"
+    <string-picker
       [size]="'near-full'"
       [initialItems]="['vegetarien', 'apero', 'facile', 'dessert', 'patisserie', 'asiatique', 'bouillon', 'salade', 'pizza']"
       [initialSelectedItems]="this.recipeService.recipe.tags"
@@ -66,6 +65,49 @@
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'tags'"> 
     </string-picker>
+    
+    <div 
+      class="big-top-margined small title">
+      Plus
+    </div>
+    
+    <interactive-input
+      [size]="'near-full'"
+      [inputId]="'recipe-portion-number-input'"
+      [inputTextAlign]="'center'"
+      [placeholder]="this.recipeService.recipe.portionNumber"
+      [altPlaceholder]="'Nombre de portions'"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'portionNumber'"
+      (onSuccess)="this.onRecipeModification()">
+    </interactive-input>
+    
+    <interactive-input
+      [size]="'near-full'"
+      [inputId]="'recipe-time-input'"
+      [inputTextAlign]="'center'"
+      [placeholder]="this.recipeService.recipe.time"
+      [altPlaceholder]="'Temps estimé'"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'time'"
+      (onSuccess)="this.onRecipeModification()">
+    </interactive-input>
+    
+     <div 
+      class="big-top-margined small title">
+      Personnalisation
+    </div>
+    
+    <color-picker
+      style="margin-bottom:40px;"
+      [size]="'near-full'"
+      [alignment]="'center'"
+      [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+      [sdbProperty]="'color'"
+      [initialItems]="this.proposedColorItems"
+      [initialSelectedItems]="(this.recipeService.recipe.color !== '')?[this.matchColorItem(this.recipeService.recipe.color)]:[]"
+      (selectItems)="this.onSelectColor()">
+    </color-picker>
 
   </card>
   
@@ -83,7 +125,8 @@
       [size]="'near-full'"
       [initialSelectedUsers]="this.recipeService.resolvedAdmins"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
-      [sdbProperty]="'admins'">
+      [sdbProperty]="'admins'"
+      (selectUser)="this.createRecipeEditorAddedEvents($event)">
     </user-picker>
     
   </div>
@@ -102,6 +145,16 @@
     [labelPosition]="'right'"
     [status]="this.recipeDraftFlagStatus"
     (click)="this.onClickPublish()">
+  </stateful-button>
+  
+  <stateful-button
+    [size]="40"
+    [shape]="'square'"
+    [icon]="'u'"
+    [label]="'Supprimer la recette'"
+    [labelPosition]="'right'"
+    [status]="this.recipeDeleteStatus"
+    (click)="this.onClickDelete()">
   </stateful-button>
   
   <neumorphic-button

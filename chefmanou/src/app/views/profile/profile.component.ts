@@ -8,6 +8,10 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { ThemeService, Theme } from 'src/app/layout/services/theme.service';
 import { ColorItem } from 'src/app/common/color-picker/color-picker.component';
 
+import { Event } from "../../model/event.model";
+import { EventService } from 'src/app/services/event.service';
+import { ActivityService } from 'src/app/services/activity.service';
+
 @Component({
   selector: 'app-profile',
   host: { 'class' : 'page'},
@@ -44,9 +48,11 @@ export class ProfileComponent implements OnInit {
             private recipeFilterService: RecipeFilterService,
             private themeService: ThemeService,
             private authService: AuthService,
+            private eventService: EventService,
             public uploadService: UploadService,
             public userService: UserService,
             public profileService: ProfileService,
+            public activityService: ActivityService,
             public router: Router) { }
 
   ngOnInit(): void {
@@ -81,7 +87,6 @@ export class ProfileComponent implements OnInit {
    * Convert theme object to ColorItem object
    */
   private toColorItem(theme: Theme): ColorItem {
-    console.log(theme);
     return {
         payload: theme.name,
         label: theme.label,
@@ -110,9 +115,33 @@ export class ProfileComponent implements OnInit {
   public onSignOut() {
     // Reset services
     this.profileService.reset();
+    this.activityService.reset();
     this.recipeFilterService.reset();
     
     // Sign out
     this.authService.signOutUser();
+  }
+  
+    /**
+   * Create events on database corresponding to the recipe modification
+   */
+  public createProfilePictureModificationEvents(imageUrl: string){
+    if(this.profileService.isLoaded){
+      
+      // Create recipe modification events for followers
+      let event = new Event()
+      event.init();
+      event.code = 709;
+      event.userRef = this.profileService.profile.user.userId;
+      event.message = imageUrl;
+      this.eventService.uploadEventsOnServer(event, this.profileService.profile.user.followers);
+      
+      // Create modification event for my own recipe
+      let selfEvent = new Event()
+      selfEvent.init();
+      selfEvent.code = 710;
+      selfEvent.message = imageUrl;
+      this.eventService.uploadEventOnServer(selfEvent, this.profileService.profile.user.userId);
+    }
   }
 }

@@ -47,6 +47,9 @@ import { AlertComponent } from './layout/alert/alert.component';
 import { MobileMenuComponent } from './layout/mobile-menu/mobile-menu.component';
 import { NewRecipeComponent } from './views/new-recipe/new-recipe.component';
 import { HistoryComponent } from './views/history/history.component';
+import { IndicatorComponent } from './common/indicator/indicator.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { EventBlockComponent } from './common/event-block/event-block.component';
 
 @NgModule({ 
   declarations: [
@@ -89,6 +92,9 @@ import { HistoryComponent } from './views/history/history.component';
     MobileMenuComponent,
     NewRecipeComponent,
     HistoryComponent,
+    IndicatorComponent,
+    DateAgoPipe,
+    EventBlockComponent,
   ],
   imports: [
     BrowserModule,

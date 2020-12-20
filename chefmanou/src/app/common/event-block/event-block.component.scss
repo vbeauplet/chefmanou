@@ -1,0 +1,40 @@
+:host{
+  flex-shrink:1;
+  flex-wrap:nowrap;
+  
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+.event-block-date{
+  white-space:nowrap;
+  
+  min-width:160px;
+}
+
+.event-block-content{
+  flex-shrink:1;
+  flex-wrap:nowrap;
+  
+  border-radius:0px;
+}
+
+.event-block-message{
+  text-align:center;
+}
+
+@media all and (max-width: 800px)  {
+  
+  :host{
+    flex-shrink:1;
+    flex-wrap:wrap;
+    
+    flex-direction:column;
+  }
+  
+  .event-block-date{
+    min-width:unset;
+  }
+
+}

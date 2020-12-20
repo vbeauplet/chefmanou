@@ -1,6 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Alert, IAlertProposal } from 'src/app/model/alert.model';
 import { AlertService } from 'src/app/layout/services/alert.service';
+
+import { Event } from "../../model/event.model";
 
 interface IAlertDisplayStatus{
   transitory: boolean
@@ -19,7 +21,7 @@ export class AlertComponent implements OnInit {
   /**
    * Duration, in ms, of the transition animation to display and undisplay the alert
    */
-  private ALERT_APPEARANCE_TRANSITION_TIME: number = 200;
+  public ALERT_APPEARANCE_TRANSITION_TIME: number = 200;
 
   /**
    * Bindable list of displayed alerts
@@ -51,7 +53,7 @@ export class AlertComponent implements OnInit {
     if(alert.proposals.length == 0){
       setTimeout(() =>{
           this.undisplayAlert(alert, this.ALERT_APPEARANCE_TRANSITION_TIME);
-        }, 5000)
+        }, 5000);
         
     }
   }
@@ -98,6 +100,13 @@ export class AlertComponent implements OnInit {
         this.alerts.delete(alert);
       }, transitionTime);
         
+  }
+  
+  /**
+   * Tells if an alert is an event alert
+   */
+  public isEventAlert(alert:Alert): boolean{
+    return alert.customObject != null  && alert.customObject instanceof Event;
   }
 
 }

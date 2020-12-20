@@ -7,12 +7,16 @@
 <div
   *ngIf="this.activityService.isLoaded">
   <div
-    *ngFor="let event of this.activityService.events">
+    *ngFor="let event of this.activityService.events"
+    class="timeline-card-container xbig row-dir hor-left vert-center flex-block">
     
-    Ma nouvelle recette a été publiée !
-    <recipe-card
-      *ngIf="(event.code == 700 || event.code == 701) && event.isRecipeResolved"
-      [recipe]="event.resolvedRecipe">
-    </recipe-card>
+    <div
+      class="timeline-dot">
+    </div>
+    
+    <event-block
+      [event]="event">
+    </event-block>    
+    
   </div>
 </div>

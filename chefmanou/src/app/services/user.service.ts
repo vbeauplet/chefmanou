@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService, AuthInfos } from '../auth/services/auth.service';
 
 import { User } from "../model/user.model";
+import { Event, eventConverter } from "../model/event.model";
 
 import * as firebase from 'firebase';
 
@@ -103,6 +104,8 @@ export class UserService {
    * May be called after a new Authentication object has been created
    */
   public createNewUserOnServer(userId: string, email: string){
+    
+    // Create user
     let user: User = new User();
     user.userId = userId
     user.email = email;

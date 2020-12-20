@@ -1,0 +1,18 @@
+<square-icon
+  [size]="this.iconSize"
+  [iconPackage] = "this.iconPackage"
+  [icon]="this.icon"
+  [color]="this.color"
+  [ngStyle]="{
+    'margin': this.iconMargin + 'px'
+    }">
+</square-icon>
+  
+<div
+  class="indicator-text"
+  [ngStyle]="{
+    'text-align': this.textAlign
+    }">
+  {{ this.text }}
+</div>
+

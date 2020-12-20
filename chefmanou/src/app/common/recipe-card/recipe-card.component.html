@@ -65,15 +65,35 @@
   </div>
   
   <div
-    class="recipe-info row-dir vert-center flex-block">
-    <square-icon
+    style="margin-left:0px;margin-right:0px"
+    class="recipe-info full row-dir vert-center hor-space-evenly flex-block">
+    
+    <indicator
+      [size]="'quarter'"
       [icon]="'M'"
-      [size]="20">
-    </square-icon>
-    <div
-      style="margin-left:20px;">
-      {{ this.recipe.views }}
-    </div>
+      [iconSize]="20"
+      [text]="this.recipe.views"
+      [textAlign]="'center'">
+    </indicator>
+    
+    <indicator
+      *ngIf="this.recipe.portionNumber !== ''"
+      [size]="'quarter'"
+      [icon]="','"
+      [iconSize]="20"
+      [text]="this.recipe.portionNumber"
+      [textAlign]="'center'">
+    </indicator>
+    
+    <indicator
+      *ngIf="this.recipe.time !== ''"
+      [size]="'quarter'"
+      [icon]="'N'"
+      [iconSize]="20"
+      [text]="this.recipe.time"
+      [textAlign]="'center'">
+    </indicator>
+    
   </div>
   
   <ng-content></ng-content>

@@ -6,5 +6,6 @@
   [sdbDocNode]="this.sdbDocNode"
   [imageSrc]="this.imageSrc"
   [imageUrlSdbProperty]="this.imageUrlSdbProperty"
-  [miniatureImageUrlSdbProperty]="this.miniatureImageUrlSdbProperty">
+  [miniatureImageUrlSdbProperty]="this.miniatureImageUrlSdbProperty"
+  (changeImage)="this.changeImage.emit($event)">
 </active-image>

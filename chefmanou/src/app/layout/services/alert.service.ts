@@ -116,6 +116,24 @@ export class AlertService {
     this.alert(alert);
     return this.waitResponse(alert.id);
   }
+  
+    /**
+   * Raises a decision alert, with multiple custom proposals
+   * Returns a promise which carries user response as potential payload
+   */
+  public raiseCustomObjectAlert(customObject: any, proposals: IAlertProposal[], severity: number, id?:string): Promise<string>{
+    let alert = new Alert();
+    if(id != undefined){
+      alert.id = id;
+    }
+    alert.date = Date.now();
+    alert.customObject = customObject;
+    alert.severity = severity;
+    alert.proposals = proposals;
+    this.alert(alert);
+    return this.waitResponse(alert.id);
+  }
+  
 
   /**
    * Raises an alert

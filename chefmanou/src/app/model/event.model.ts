@@ -23,9 +23,10 @@ export class Event {
    * - 706: Cooker is following self
    * - 707: Comment added on selef recipe
    * - 708: Comment added by self
-   * - 709: Cooker profile update
-   * - 710: Self profile update
+   * - 709: Cooker profile picture update
+   * - 710: Self profile picture update
    * - 711: Self account creation
+   * - 712: Cooker added self to the editors of a recipe
    */
   public code: number = 0;
   

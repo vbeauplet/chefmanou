@@ -22,7 +22,7 @@ export class UploadAdapter {
          
             upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
               () => {
-                console.log('Chargement…');
+                console.log('Chargement');
               },
               (error) => {
                 console.log('Erreur de chargement ! : ' + error);

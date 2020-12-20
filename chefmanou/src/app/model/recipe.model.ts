@@ -1,5 +1,4 @@
 import { User } from './user.model';
-import { userConverter } from '../services/user.service';
 
 /**
  * Defines a recipe structure
@@ -75,6 +74,22 @@ export class Recipe {
    * Recipe tags
    */
   public tags: string [] = [];
+  
+  /**
+   * Number of portions
+   * Numebr of people the recipe can feed
+   */
+  public portionNumber: string = '';
+  
+  /**
+   * Time needed to make the recipe
+   */
+  public time: string = '';
+
+  /**
+   * User selected color to represent the recipe
+   */
+  public color: string = '';
 
   // Additional attributes, will not appear in database
 
@@ -110,7 +125,10 @@ export const recipeConverter = {
             content: recipe.content,
             visibility: recipe.visibility,
             admins: recipe.admins,
-            tags: recipe.tags
+            tags: recipe.tags,
+            portionNumber: recipe.portionNumber,
+            time: recipe.time,
+            color: recipe.color
           }
     },
     fromFirestore: function(snapshot: any, options: any){
@@ -134,6 +152,15 @@ export const recipeConverter = {
         recipe.visibility = data.visibility;
         recipe.admins = data.admins;
         recipe.tags = data.tags;
+        if(data.portionNumber != undefined){
+          recipe.portionNumber = data.portionNumber;
+        }
+        if(data.time != undefined){
+          recipe.time = data.time;
+        }
+        if(data.color != undefined){
+          recipe.color = data.color;
+        }
         
         return recipe;
     }

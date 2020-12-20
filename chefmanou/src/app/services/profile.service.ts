@@ -147,13 +147,7 @@ export class ProfileService {
    */
   public follow(userToFollow: User){
     // Add selected user to followings
-    this.userService.addFollowingOnServer(this.profile.user, userToFollow)
-      .then(() => {
-          console.log('adding user'); 
-        
-          // Alert user cooker has been added
-          this.alertService.raiseInfo(userToFollow.name + ' a été ajouté à vos cuisiniers')
-        });
+    this.userService.addFollowingOnServer(this.profile.user, userToFollow);
     this.userService.addFollowerOnServer(userToFollow, this.profile.user);
   }
   
@@ -166,7 +160,7 @@ export class ProfileService {
       .then((response:string) => {
           if(response == 'accept'){
             
-            // REmove user from folowings ones
+            // Remove user from folowings ones
             this.userService.removeFollowingOnServer(this.profile.user, userToFollow);
             this.userService.removeFollowerOnServer(userToFollow, this.profile.user);
           }
@@ -234,7 +228,6 @@ export class ProfileService {
    */
   public reset(){
     this.profile = new Profile();
-    this.profileSubject = new Subject<Profile>();
     this.isLoaded = false;
     this.areLatestRecipesLoaded = false;
   }

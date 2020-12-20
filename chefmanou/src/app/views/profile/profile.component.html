@@ -13,7 +13,8 @@
       [hasUploadButton]="true"
       [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
       [imageUrlSdbProperty]="'photoUrl'"
-      [miniatureImageUrlSdbProperty]="'avatarUrl'">
+      [miniatureImageUrlSdbProperty]="'avatarUrl'"
+      (changeImage)="this.createProfilePictureModificationEvents($event)">
     </outlined-active-image>
     
     <div
