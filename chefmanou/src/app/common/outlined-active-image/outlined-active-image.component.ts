@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActiveImageComponent } from '../active-image/active-image.component';
 import { UploadService } from 'src/app/services/upload.service';
 
@@ -12,7 +12,12 @@ import { UploadService } from 'src/app/services/upload.service';
   styleUrls: ['./outlined-active-image.component.scss']
 })
 export class OutlinedActiveImageComponent extends ActiveImageComponent implements OnInit {
-
+  
+  /**
+   * Event that is emitted when image has been modified
+   */
+  @Output() changeImage: EventEmitter<string> = new EventEmitter<string>();
+  
   constructor(
     public uploadService: UploadService) {
     super(uploadService);

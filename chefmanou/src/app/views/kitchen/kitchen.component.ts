@@ -4,6 +4,7 @@ import { RecipeDashboardService } from 'src/app/services/recipe-dashboard.servic
 import { ProfileService } from 'src/app/services/profile.service';
 import { KitchenFilterComponent } from './kitchen-filter/kitchen-filter.component';
 import { User } from 'src/app/model/user.model';
+import { ActivityService } from 'src/app/services/activity.service';
 
 @Component({
   selector: 'app-kitchen',
@@ -21,7 +22,8 @@ export class KitchenComponent implements OnInit {
   constructor(
       public recipeFilterService: RecipeFilterService,
       public recipeDashboardService: RecipeDashboardService,
-      public profileService: ProfileService
+      public profileService: ProfileService,
+      public activityService: ActivityService
     ) {}
 
   ngOnInit(): void {

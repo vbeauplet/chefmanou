@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivityService } from 'src/app/services/activity.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-activity',
@@ -10,6 +11,7 @@ import { ActivityService } from 'src/app/services/activity.service';
 export class ActivityComponent implements OnInit {
 
   constructor(
+      public profileService: ProfileService,
       public activityService: ActivityService
     ) { }
 

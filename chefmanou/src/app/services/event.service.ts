@@ -45,8 +45,6 @@ export class EventService {
    */
   public uploadEventOnServer(event: Event, forUser: string){
     const eventCollectionRef = this.computeEventCollectionRef(forUser);
-    console.log('Collection ref is');
-    console.log(eventCollectionRef);
     const newEventDoc = firebase.firestore().collection(eventCollectionRef).doc(event.id);
     newEventDoc.withConverter(eventConverter).set(event);
   }
@@ -56,8 +54,6 @@ export class EventService {
    * Will appear as an event into the provided users timeline
    */
   public uploadEventsOnServer(event: Event, forUsers: string[]){
-    console.log('Upload for users...')
-    console.log(forUsers);
     for(let i = 0; i < forUsers.length; i++){
       this.uploadEventOnServer(event, forUsers[i]);
     }

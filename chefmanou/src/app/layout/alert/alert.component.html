@@ -3,12 +3,33 @@
 
   <div
     *ngFor="let alertEntry of this.alerts | keyvalue"
-    class="big padded margined col-dir hor-center flex-block alert"
+    class="big padded col-dir hor-center flex-block alert"
     [class.transitory]="alertEntry.value.transitory"
     [class.warning]="alertEntry.key.severity == 2"
     [class.error]="alertEntry.key.severity == 3">
     
+    <!-- Close icon if this is not a decision alert -->
+    <square-icon
+      *ngIf="alertEntry.key.proposals.length == 0"
+      class="alert-close-icon"
+      [icon]="'X'"
+      [size]="'20'"
+      (click)="this.undisplayAlert(alertEntry.key, this.ALERT_APPEARANCE_TRANSITION_TIME)">
+    </square-icon>
+    
+    <!-- Case it is an event alert -->
+    <event-block
+      *ngIf="this.isEventAlert(alertEntry.key)"
+      [event]="alertEntry.key.customObject"
+      [margined]="false"
+      [padded]="false"
+      [outlined]="false"
+      [showDate]="false">
+    </event-block>
+  
+    <!-- General case with a message -->
     <div
+      *ngIf="alertEntry.key.customObject == null"
       class="alert-message"
       [ngStyle]="{
           'margin-bottom': (alertEntry.key.proposals.length != 0)?'15px':'0px'
@@ -16,6 +37,7 @@
       {{ alertEntry.key.message }}
     </div>
     
+    <!-- Proposal buttons -->
     <div
       class="row-dir vert-center flex-block alert-controls">
       

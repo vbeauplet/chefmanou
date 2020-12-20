@@ -202,6 +202,13 @@ export class RecipeService {
   }
   
   /**
+   * Deletes a recipe on server. do not delete its subcollections
+   */
+  public deleteRecipeOnServer(recipeId: string){
+    firebase.firestore().collection('recipes').doc(recipeId).delete();
+  }
+  
+  /**
    * Tells if all admins of the recipe are resolved
    */
   public areAdminsResolved(){

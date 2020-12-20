@@ -18,6 +18,11 @@ export class Alert{
   public message: string = '';
   
   /**
+   * Alert custom object, if any
+   */
+  public customObject: any = null;
+  
+  /**
    * Severity of the alert message
    * 1: info
    * 2: warning

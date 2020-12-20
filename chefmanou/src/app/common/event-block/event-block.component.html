@@ -1,0 +1,182 @@
+<div
+  *ngIf="this.showDate"
+  class="event-block-date">
+ {{ event.time | dateAgo }}
+</div>
+
+<!-- Case event 700 -->
+<div
+  *ngIf="event.code == 700"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} vient de publier une nouvelle recette :
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>
+
+<!-- Case event 701 -->
+<div
+  *ngIf="event.code == 701"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    class="event-block-message">
+    Ma nouvelle recette a été publiée !
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>
+
+<!-- Case event 702 -->
+<div
+  *ngIf="event.code == 702"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} vient de modifier l'une de ses recettes :
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>
+
+<!-- Case event 703 -->
+<div
+  *ngIf="event.code == 703"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    class="event-block-message">
+    Ma recette a bien été modifiée
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>
+
+<!-- Case event 705 -->
+<div
+  *ngIf="event.code == 705"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} est désormais dans ma cuisine
+  </div>
+  
+  <user-miniature
+    *ngIf="event.isUserResolved"
+    [user]="event.resolvedUser">
+  </user-miniature>
+  
+</div>
+
+<!-- Case event 706 -->
+<div
+  *ngIf="event.code == 706"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} me suit
+  </div>
+  
+  <user-miniature
+    *ngIf="event.isUserResolved"
+    [user]="event.resolvedUser">
+  </user-miniature>
+  
+</div>
+
+<!-- Case event 709 -->
+<div
+  *ngIf="event.code == 709"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} a mis à jour sa photo de profil :
+  </div>
+  
+  <outlined-active-image
+    *ngIf="event.isUserResolved"
+    style="margin:10px"
+    [size]="'half'"
+    [shape]="'round'"
+    [hasOverlay]="true"
+    [hasUploadButton]="false"
+    [imageSrc]="event.message">
+  </outlined-active-image>
+  
+</div>
+
+<!-- Case event 710 -->
+<div
+  *ngIf="event.code == 710"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    class="event-block-message">
+    Ma photo de profil a été mise à jour
+  </div>
+  
+  <outlined-active-image
+    style="margin:10px"
+    [size]="'half'"
+    [shape]="'round'"
+    [hasOverlay]="true"
+    [hasUploadButton]="false"
+    [imageSrc]="event.message">
+  </outlined-active-image>
+  
+</div>
+
+<!-- Case event 712 -->
+<div
+  *ngIf="event.code == 712"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    *ngIf="event.isUserResolved"
+    class="event-block-message">
+    {{ event.resolvedUser.name }} vient de vous ajouter en tant qu'éditeur d'une recette :
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>

@@ -2,10 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { User } from '../../model/user.model';
 import { ProfileService } from 'src/app/services/profile.service';
-import { CardComponent } from '../card/card.component';
 import { UserService } from 'src/app/services/user.service';
 import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
 import { Router } from '@angular/router';
+import { Event } from "../../model/event.model";
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'user-card',
@@ -34,6 +35,7 @@ export class UserCardComponent implements OnInit {
 
   constructor(
     private recipeFilterService: RecipeFilterService,
+    private eventService: EventService,
     public userService: UserService,
     public profileService: ProfileService,
     public router: Router) {
@@ -52,6 +54,9 @@ export class UserCardComponent implements OnInit {
     }
     else{
       this.profileService.follow(this.user);
+      
+      // Create associate events
+      this.createFollowUserEvents();
     }
     setTimeout(() => {
         this.userFollowStatus = -1;
@@ -68,6 +73,28 @@ export class UserCardComponent implements OnInit {
     
     // Go to dashboard view
     this.router.navigate(['kitchen']);
+  }
+  
+  /**
+   * Create events on database corresponding to a user follow event
+   */
+  public createFollowUserEvents(){
+    if(this.profileService.isLoaded){
+      
+      // Tells connected user follow a new user
+      let event1 = new Event()
+      event1.init();
+      event1.code = 705;
+      event1.userRef = this.user.userId;
+      this.eventService.uploadEventOnServer(event1, this.profileService.profile.user.userId);
+      
+      // Tells to the user that he is now followed by the connected user
+      let event2 = new Event()
+      event2.init();
+      event2.code = 706;
+      event2.userRef = this.profileService.profile.user.userId;
+      this.eventService.uploadEventOnServer(event2, this.user.userId);
+    }
   }
 
 }

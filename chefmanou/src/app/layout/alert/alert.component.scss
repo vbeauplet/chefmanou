@@ -1,12 +1,17 @@
 .alert-container{
   position:fixed;
   z-index: 1000;
+  
+  width:90%;
 }
 
 .alert{
   background-color: var(--main-bg-color);
   border: solid var(--main-content-color) 1px;
   box-shadow: 0px 0px 8px 8px var(--light-shadow-color);
+  
+  margin-top:20px;
+  padding-bottom:25px;
   
   color:var(--main-content-color);
   
@@ -25,3 +30,10 @@
   .alert.transitory{
     opacity: 0;
   }
+  
+.alert-close-icon{
+  cursor:pointer;
+  position:relative;
+  margin-top:-10px;
+  left:45%;
+}

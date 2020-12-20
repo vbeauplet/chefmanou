@@ -1,0 +1,12 @@
+:host{
+  flex-wrap:nowrap;
+}
+
+
+.indicator-text{
+  flex-shrink:1;
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}

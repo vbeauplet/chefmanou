@@ -287,7 +287,10 @@ a {
   .row-dir.hor-space-between {
     justify-content:space-between;
   }
-
+  
+  .row-dir.hor-space-evenly {
+    justify-content:space-evenly;
+  }
 
 /* BLOCK SIZES */
 
@@ -351,6 +354,10 @@ a {
   border-radius:0px;
 }
 
+.container-block.initial-width, .flex-block.initial-width {
+  width: initial;
+}
+
 
 /* FORMS */
 
@@ -362,6 +369,8 @@ a {
   
   border:none;
   outline:none;
+  
+  color: var(--main-content-color);
   
   border-radius: 8px;
   background: var(--main-bg-color);

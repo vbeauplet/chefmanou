@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../../services/recipe.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,6 +12,9 @@ import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeDashboardService } from 'src/app/services/recipe-dashboard.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { EventService } from 'src/app/services/event.service';
+import { ColorItem } from 'src/app/common/color-picker/color-picker.component';
+import { AlertService } from 'src/app/layout/services/alert.service';
+import { User } from 'src/app/model/user.model';
 
 
 @Component({
@@ -48,13 +51,45 @@ export class EditRecipeComponent implements OnInit {
   public recipeDraftFlagButtonLabel = '';
   
   /**
+   * Loading status of the 'delete recipe' buttonrecipe 'draft' flag
+   */
+  public recipeDeleteStatus: number = -1;
+  
+  /**
+   * Color proposals for the recipe
+   */
+  public proposedColorItems: ColorItem[] = [
+        {
+          label:'Moutarde',
+          payload:'mustard',
+          colors:['#FEAA00']
+        },
+        {
+          label:'Forêt',
+          payload:'green',
+          colors:['#013328']
+        },
+        {
+          label:'Nemo',
+          payload:'nemo',
+          colors:['#F26659']
+        }
+      ];
+  
+  /**
    * Tells if admin card shall be displayed.Not displayed at the beggining
    */
   public displayAdminCard = false;
+  
+  /**
+   * Tells if modifications  have occured since edition session began
+   */
+  private hasBeenModified: boolean = false;
 
   constructor(public recipeService: RecipeService,
               public recipeDashboardService: RecipeDashboardService,
               public profileService: ProfileService,
+              private alertService: AlertService,
               private eventService: EventService,
               private route: ActivatedRoute,
               private router: Router) { }
@@ -84,6 +119,30 @@ export class EditRecipeComponent implements OnInit {
     
   }
   
+  /**
+   * Describes what shall happen at component destruction
+   */
+  ngOnDestroy() {
+    // If their was modification during the edition session, and current recipe is not a draft, create associated events
+    if(this.hasBeenModified && this.recipeService.isLoaded && !this.recipeService.recipe.draft){
+      this.createRecipeModificationEvents();
+    }
+  }
+  
+  /**
+   * Reacts to recipe modification
+   */
+  public onRecipeModification(){
+    // If recipe is not a draft, refresh dashboard
+    if(!this.recipeService.recipe.draft){
+      this.refreshRecipeDashboard();
+    }
+    
+    // Tell recipe was modified
+    this.hasBeenModified = true;
+  }
+  
+  
   public onReady(eventData: any){
     eventData.plugins.get('FileRepository').createUploadAdapter = function (loader) {
       return new UploadAdapter(loader);
@@ -108,6 +167,9 @@ export class EditRecipeComponent implements OnInit {
           sdbPropertyUpdate['content'] = this.recipeContent;
           firebase.firestore().doc('recipes/' + this.recipeService.recipe.id).update(sdbPropertyUpdate)
             .then(function() {
+                // Tell recipe has been modified
+                that.hasBeenModified = true;
+              
                 // Continue and set miniature URL
                 that.recipeContentLoadingStatus = 1;
                 
@@ -178,6 +240,34 @@ export class EditRecipeComponent implements OnInit {
   }
   
   /**
+   * Handles click on the delete button
+   */
+  public onClickDelete(){
+    
+    // Update button status
+    this.recipeDeleteStatus = 0;
+    
+    // Ask user for confirmation
+    this.alertService.raiseConfirmationAlert('Etes-vous vraiment sûr de vouloir supprimer la recette ?', 3)
+      .then((response:string) => {
+          if(response == 'accept'){
+           
+            // If confirmed by user, delete recipe
+            this.recipeService.deleteRecipeOnServer(this.recipeService.recipe.id);
+            
+            // Reset recipe service and redirect to home page
+            this.recipeService.reset();
+            this.recipeDashboardService.refresh();
+            this.router.navigate(['kitchen']);
+          }
+          
+          else{
+            this.recipeDeleteStatus = -1;
+          }
+        });
+  }
+  
+  /**
    * Handles click on view button
    */
   public onClickView() {
@@ -189,6 +279,13 @@ export class EditRecipeComponent implements OnInit {
    */
   public onClickInitializeTemplate() {
     this.recipeContent='<h1>Ingrédients</h1><ul><li>Ingrédient 1</li><li>Ingrédient 2<li></ul><h1>Procédure</h1><p>Bon appétit !</p>' + this.recipeContent;
+  }
+  
+  /**
+   * On select color
+   */
+  public onSelectColor(){
+    this.alertService.raiseInfo('Attends la prochaine release !');
   }
   
   /**
@@ -210,16 +307,60 @@ export class EditRecipeComponent implements OnInit {
       event.code = 700;
       event.userRef = this.profileService.profile.user.userId;
       event.recipeRef = this.recipeService.recipe.id;
-      console.log(event);
       this.eventService.uploadEventsOnServer(event, this.profileService.profile.user.followers);
       
-      // Create publication evetn for my own recipe
+      // Create publication event for my own recipe
       let selfEvent = new Event()
       selfEvent.init();
       selfEvent.code = 701;
       selfEvent.recipeRef = this.recipeService.recipe.id;
-      console.log(selfEvent);
       this.eventService.uploadEventOnServer(selfEvent, this.profileService.profile.user.userId);
+    }
+  }
+  
+  /**
+   * Create events on database corresponding to the recipe modification
+   */
+  public createRecipeModificationEvents(){
+    if(this.profileService.isLoaded && this.recipeService.isLoaded){
+      
+      // Create recipe modification events for followers
+      let event = new Event()
+      event.init();
+      event.code = 702;
+      event.userRef = this.profileService.profile.user.userId;
+      event.recipeRef = this.recipeService.recipe.id;
+      this.eventService.uploadEventsOnServer(event, this.profileService.profile.user.followers);
+      
+      // Create modification event for my own recipe
+      let selfEvent = new Event()
+      selfEvent.init();
+      selfEvent.code = 703;
+      selfEvent.recipeRef = this.recipeService.recipe.id;
+      this.eventService.uploadEventOnServer(selfEvent, this.profileService.profile.user.userId);
+    }
+  }
+  
+  /**
+   * Create events on database corresponding to the recipe modification
+   */
+  public createRecipeEditorAddedEvents(addedUser: User){
+      let event = new Event()
+      event.init();
+      event.code = 712;
+      event.userRef = this.profileService.profile.user.userId;
+      event.recipeRef = this.recipeService.recipe.id;
+      this.eventService.uploadEventOnServer(event, addedUser.userId);
+  }
+  
+  /**
+   * Matches a proposed color item from a color payload
+   */
+  public matchColorItem(color: string) {
+    for(let item of this.proposedColorItems){
+      if(item.payload === color){
+        return item;
+      }
     }
   }
   
