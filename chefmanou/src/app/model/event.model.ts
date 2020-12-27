@@ -21,7 +21,7 @@ export class Event {
    * - 704: Self Recipe added as favorite by cooker
    * - 705: Self follow a new cooker
    * - 706: Cooker is following self
-   * - 707: Comment added on selef recipe
+   * - 707: Comment added on self recipe
    * - 708: Comment added by self
    * - 709: Cooker profile picture update
    * - 710: Self profile picture update

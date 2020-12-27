@@ -5,7 +5,8 @@
 
 <!-- Else display events -->
 <div
-  *ngIf="this.activityService.isLoaded">
+  *ngIf="this.activityService.isLoaded"
+  class="full col-dir hor-center flex-block">
   <div
     *ngFor="let event of this.activityService.events"
     class="timeline-card-container xbig row-dir hor-left vert-center flex-block">
