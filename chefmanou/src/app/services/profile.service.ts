@@ -39,6 +39,11 @@ export class ProfileService {
    * Tells if latest recipes are laoded and up to date with connected user
    */
   public areLatestRecipesLoaded: boolean = false;
+  
+    /**
+   * Tells if favorite recipes are loaded and up to date with connected user
+   */
+  public areFavoriteRecipesLoaded: boolean = false;
 
   /**
    * Buildsthe ProfileService, subscribing to the needed observable
@@ -73,40 +78,97 @@ export class ProfileService {
       .onSnapshot(function(doc) {
           /*
            * Websocket: at each reference node change, this code is played
-           */           
-          that.profile.user = doc.data();
+           */
+          let user: User = doc.data();
+
+          // If user still meets the one loaded in profile service, squash the new user snapshot
+          if(that.isLoaded && userId == that.profile.user.userId){
+            that.squashProfile(user);
+          }
           
-          // Apply theme (only if changed)
-          that.themeService.changeTheme(that.profile.user.theme);
-          
-          // Aditionally resolve followers and following Users
-          that.userService.getFollowersOnServer(that.profile.user).then(
-              (result: User[]) => {
-                that.profile.resolvedFollowers = result;
-              }
-            );
-          that.userService.getFollowingsOnServer(that.profile.user).then(
-              (result: User[]) => {
-                that.profile.resolvedFollowings = result;
-              }
-            );
-            
-          // And resolve latest recipes
-          that.refreshLatestRecipes();
-            
-          // Tell profile is loaded
-          that.isLoaded = true;
+          // Else load profile from user from scratch
+          else{
+            that.loadProfile(user);
+          }
           
           // Emit profile subject
           that.emitProfileSubject();
-        });
+        }); 
+  }
+  
+  /**
+   * Loads profile service from scratch given the corresponding root user from server
+   */
+  public loadProfile(user: User){
+  
+    // Retrieve root user corresponding to connected auth from server
+    this.profile.user = user;
+    
+    // Apply theme (only if changed)
+    this.themeService.changeTheme(this.profile.user.theme);
+    
+    // Aditionally resolve followers and following Users
+    this.userService.getFollowersOnServer(this.profile.user).then(
+        (result: User[]) => {
+          this.profile.resolvedFollowers = result;
+        }
+      );
+    this.userService.getFollowingsOnServer(this.profile.user).then(
+        (result: User[]) => {
+          this.profile.resolvedFollowings = result;
+        }
+      );
+    
+    // And resolve favorite recipes
+    this.resolveFavoriteRecipes();
+      
+    // Tell profile is loaded
+    this.isLoaded = true;
+  }
+  
+  /**
+   * Sqaushes a profile from an existing one (loaded profile of the profile service) and a user to squash in
+   */
+  public squashProfile(user: User){
+    
+    // Apply theme (only if changed)
+    this.themeService.changeTheme(user.theme);
+    
+    // Resolve followers only if needed (list to reload has changed)
+    if(!this.arrayEquals(this.profile.user.followers, user.followers)){
+      this.profile.user.followers = user.followers;
+      this.userService.getFollowersOnServer(this.profile.user).then(
+        (result: User[]) => {
+          this.profile.resolvedFollowers = result;
+        }
+      );
+    }
+    
+    // Resolve followings only if needed (list to reload has changed)
+    if(!this.arrayEquals(this.profile.user.followings, user.followings)){
+      this.profile.user.followings = user.followings;
+      this.userService.getFollowingsOnServer(this.profile.user).then(
+        (result: User[]) => {
+          this.profile.resolvedFollowings = result;
+        }
+      );
+    }
+    
+    // Resolve favorite recipes only if needed (list to reload has changed)
+    if(!this.arrayEquals(this.profile.user.favoriteRecipes, user.favoriteRecipes)){
+      this.profile.user.favoriteRecipes = user.favoriteRecipes;
+      this.resolveFavoriteRecipes();
+    }
+    
+    // Squash basic properties
+    this.profile.user = user;
   }
   
     
   /**
    * Resolve latest recipes (via Recipe objects) from recipe IDs
    */
-  public refreshLatestRecipes() {
+  public resolveLatestRecipes() {
     // Reset resolved latest recipes
     this.profile.resolvedLatestRecipes = []; 
     this.areLatestRecipesLoaded = false;
@@ -142,6 +204,49 @@ export class ProfileService {
   }
   
   /**
+   */
+  public resolveFavoriteRecipes() {
+    // Reset resolved latest recipes
+    this.profile.resolvedFavoriteRecipes = []; 
+    this.areFavoriteRecipesLoaded = false;
+    let tempRecipes = {};
+    let numberOfLoadedRecipes = 0;
+           
+    // In case there is no members to resolve, tell that members are loaded
+    if(this.profile.user.favoriteRecipes.length === 0){
+      this.areFavoriteRecipesLoaded = true;
+    }
+    
+    // Resolve each member of the favorite recipes list
+    this.profile.user.favoriteRecipes.forEach(element=>{
+      this.getRecipeFromIdOnServer(element).then(
+          (result : Recipe) => {
+            // Launch author resolution
+            this.userService.getUserFromIdOnServer(result.author).then((author: User) => {
+                result.resolvedAuthor = author;
+                result.isAuthorResolved = true;
+              });
+            
+            // Add to temp recipes structure
+            tempRecipes[element] = result;
+            numberOfLoadedRecipes++;
+            
+            // Identify when all recipes are resolved
+            if(this.profile.user.favoriteRecipes.length === numberOfLoadedRecipes){
+              
+              // Push all resolved elements in the right order
+              for (var recipeId of this.profile.user.favoriteRecipes) {
+                this.profile.resolvedFavoriteRecipes.push(tempRecipes[recipeId]);
+              }
+              
+              // Notify it is resolve              
+              this.areLatestRecipesLoaded = true;
+            }
+          });
+        });
+  }
+  
+  /**
    * Put in profile kitchen a particular user
    * It means adding the user as a following,and adding current profile as follower of the user
    */
@@ -165,6 +270,24 @@ export class ProfileService {
             this.userService.removeFollowerOnServer(userToFollow, this.profile.user);
           }
         });
+  }
+  
+  /**
+   * Adds a favorite recipe to the currently connected profile
+   */
+  public addFavoriteRecipe(recipe: Recipe){
+    if(this.isLoaded){
+      this.userService.addFavoriteRecipeOnServer(this.profile.user.userId, recipe);
+    }
+  } 
+  
+  /**
+   * Removes a favorite recipe to the currently connected profile
+   */
+  public removeFavoriteRecipe(recipe: Recipe){
+    if(this.isLoaded){
+      this.userService.removeFavoriteRecipeOnServer(this.profile.user.userId, recipe);
+    }
   }
   
   /**
@@ -232,5 +355,28 @@ export class ProfileService {
     this.areLatestRecipesLoaded = false;
   }
   
+  /**
+   * Tells if 2 arrays have the same content
+   */
+  private arrayEquals(_arr1, _arr2) {
+    if (
+      !Array.isArray(_arr1)
+      || !Array.isArray(_arr2)
+      || _arr1.length !== _arr2.length
+      ) {
+        return false;
+      }
+    
+    const arr1 = _arr1.concat().sort();
+    const arr2 = _arr2.concat().sort();
+    
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+            return false;
+         }
+    }
+    
+    return true;
+}
  
 }

@@ -50,6 +50,10 @@ import { HistoryComponent } from './views/history/history.component';
 import { IndicatorComponent } from './common/indicator/indicator.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { EventBlockComponent } from './common/event-block/event-block.component';
+import { TogglerComponent } from './common/toggler/toggler.component';
+import { ButtonTogglerComponent } from './common/button-toggler/button-toggler.component';
+import { TlFbaseTogglerComponent } from './common/tl-fbase-toggler/tl-fbase-toggler.component';
+import { TlFbaseButtonTogglerComponent } from './common/tl-fbase-button-toggler/tl-fbase-button-toggler.component';
 
 @NgModule({ 
   declarations: [
@@ -95,6 +99,10 @@ import { EventBlockComponent } from './common/event-block/event-block.component'
     IndicatorComponent,
     DateAgoPipe,
     EventBlockComponent,
+    TogglerComponent,
+    ButtonTogglerComponent,
+    TlFbaseTogglerComponent,
+    TlFbaseButtonTogglerComponent,
   ],
   imports: [
     BrowserModule,

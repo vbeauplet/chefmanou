@@ -37,8 +37,8 @@ export class User {
    * URL of the user's avatar
    */
   public avatarUrl: string = '';
-  
-    /**
+ 
+  /**
    * URL of the user's photo
    */
   public photoUrl: string = '';
@@ -49,7 +49,7 @@ export class User {
   public followers: string[] = [];
   
   /**
-   * List of cookers user is foolowing
+   * List of cookers user is following
    */
   public followings: string[] = [];
   
@@ -62,6 +62,11 @@ export class User {
    * List of latest recipes seen by user
    */
   public latestRecipes: string[] = [];
+  
+  /**
+   * List of favorite recipes
+   */
+  public favoriteRecipes: string[] = [];
   
   /**
    * User theme

@@ -42,6 +42,16 @@
       (selectItem)="this.recipeFilterService.updateRecipeNature($event)">
     </string-picker>
     
+    <toggler
+      [icon]="'6'"
+      [label]="'Favorites seulement'"
+      [onBgColor]="'outline'"
+      [initialState]="this.recipeFilterService.recipeFilter.favorite"
+      [synchrone]="true"
+      (toggleOn)="this.recipeFilterService.updateFavoriteFlag(true)"
+      (toggleOff)="this.recipeFilterService.updateFavoriteFlag(false)">
+    </toggler>
+    
     <div
       class="big-top-margined small title">
       Tags

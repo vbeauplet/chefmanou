@@ -8,6 +8,18 @@
 <div
   *ngIf="!this.isLoading"
   class="full col-dir hor-center flex-block">
+  
+  <div
+    class="full row-dir hor-space-between vert-center flex-block recipe-card-header">
+    
+    <!-- Favorite flag -->
+    <square-icon
+      *ngIf="this.displayFavoriteFlag && this.isFavorite"
+      [icon]="'6'"
+      [size]="30"
+      [color]="'outline'">
+    </square-icon>
+  </div>
     
   <active-image
     *ngIf="this.recipe[this.imageAttribute] !== null && this.recipe[this.imageAttribute] !== ''"

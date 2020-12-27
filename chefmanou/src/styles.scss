@@ -123,6 +123,22 @@ a {
   color: var(--failure-content-color);
 }
 
+.outline-bg-element{
+  background-color: var(--outline-content-color)!important;
+}
+
+.neutral-bg-element{
+  background-color: var(--neutral-content-color)!important;
+}
+
+.success-bg-element{
+  background-color: var(--success-content-color)!important;
+}
+
+.failure-bg-element{
+  background-color: var(--failure-content-color)!important;
+}
+
 
 /* PAGE: FOR BASIC VIEW CONTAINER */
 
@@ -373,7 +389,7 @@ a {
   color: var(--main-content-color);
   
   border-radius: 8px;
-  background: var(--main-bg-color);
+  background-color: var(--main-bg-color);
   box-shadow: inset 2px 2px 5px var(--sharp-dark-shadow-color), 
               inset -2px -2px 5px var(--sharp-light-shadow-color);
 }

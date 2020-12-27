@@ -78,6 +78,24 @@
   
 </div>
 
+<!-- Case event 704 -->
+<div
+  *ngIf="event.code == 704"
+  class="event-block-content full col-dir hor-center flex-block"
+  [class.padded]="this.padded">
+  
+  <div
+    class="event-block-message">
+    {{ event.resolvedUser.name }} a ajouté votre recette a ses favorites :
+  </div>
+  
+  <recipe-miniature
+    *ngIf="event.isRecipeResolved"
+    [recipe]="event.resolvedRecipe">
+  </recipe-miniature>
+  
+</div>
+
 <!-- Case event 705 -->
 <div
   *ngIf="event.code == 705"

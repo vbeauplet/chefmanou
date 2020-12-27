@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { AuthService, AuthInfos } from '../auth/services/auth.service';
 
 import { User } from "../model/user.model";
-import { Event, eventConverter } from "../model/event.model";
 
 import * as firebase from 'firebase';
+import { Recipe } from '../model/recipe.model';
 
 export const userConverter = {
     toFirestore: function(user: any) {
@@ -22,6 +22,7 @@ export const userConverter = {
             followings: user.followings,
             pinnedRecipe: user.pinnedRecipe,
             latestRecipes: user.latestRecipes,
+            favoriteRecipes: user.favoriteRecipes,
             theme: user.theme
           }
     },
@@ -43,6 +44,7 @@ export const userConverter = {
         user.followings = data.followings;
         user.pinnedRecipe = data.pinnedRecipe;
         user.latestRecipes = data.latestRecipes;
+        user.favoriteRecipes = data.favoriteRecipes;
         user.theme = data.theme;
         return user;
     }
@@ -189,6 +191,43 @@ export class UserService {
             reject(error);
           });
     });
+  }
+  
+    
+  /**
+   * Adds a favorite recipe to a provided user (from id)
+   */
+  public addFavoriteRecipeOnServer(userId: string, recipe: Recipe): Promise<any>{
+    return new Promise((resolve, reject) => {
+        const originRef = firebase.firestore().collection('users').doc(userId);
+        originRef.update({
+            favoriteRecipes: firebase.firestore.FieldValue.arrayUnion(recipe.id)
+          })
+          .then(function() {
+              resolve();
+            })
+          .catch(function(error) {
+              reject(error);
+            });
+      });
+  } 
+  
+  /**
+   * Removes a favorite recipe to a provided user (from id)
+   */
+  public removeFavoriteRecipeOnServer(userId: string, recipe: Recipe): Promise<any>{
+    return new Promise((resolve, reject) => {
+        const originRef = firebase.firestore().collection('users').doc(userId);
+        originRef.update({
+            favoriteRecipes: firebase.firestore.FieldValue.arrayRemove(recipe.id)
+          })
+          .then(function() {
+              resolve();
+            })
+          .catch(function(error) {
+              reject(error);
+            });
+      });
   }
   
   public updateLatestRecipesOnServer(user: User, newLatestRecipes: string[]){

@@ -120,7 +120,7 @@ export class RecipeService {
             
             // Refresh latest recipes
             if(that.profileService.isLoaded){
-              that.profileService.updateLatestRecipes(id);
+//              that.profileService.updateLatestRecipes(id);
             }
 
             // Tell recipe is loaded

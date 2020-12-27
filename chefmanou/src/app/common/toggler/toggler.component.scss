@@ -1,0 +1,13 @@
+:host{
+  cursor:pointer;
+}
+
+.toggler-container{  
+  padding:0px;
+}
+
+.toggler-moving-part{  
+  transition: margin-left ease-in-out 0.2s 
+}
+
+

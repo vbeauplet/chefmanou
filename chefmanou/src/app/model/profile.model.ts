@@ -29,6 +29,10 @@ export class Profile {
    */
   public resolvedLatestRecipes: Recipe[] = [];
   
+  /**
+   * List of all resolved latest recipes
+   */
+  public resolvedFavoriteRecipes: Recipe[] = [];
 
   constructor() {
     // Nothing to do here
