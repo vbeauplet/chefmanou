@@ -5,6 +5,7 @@ import { User } from '../model/user.model';
 export interface RecipeFilter {
   freeSearch: string;
   myRecipes: boolean;
+  favorite:boolean;
   tags: string[];
   authors: User[];
   numberOfRecipes: number;
@@ -82,6 +83,17 @@ export class RecipeFilterService {
     this.emitRecipeFilterSubject();
   }
   
+  /**
+   * Update filter favorite flag
+   */
+  public updateFavoriteFlag(favoriteFlag: boolean){
+    // Set filter favorite flag
+    this.recipeFilter.favorite = favoriteFlag;
+    
+    // Emit subject
+    this.emitRecipeFilterSubject();
+  }
+  
   
   /**
    * Update filter recipe number
@@ -101,6 +113,7 @@ export class RecipeFilterService {
     this.recipeFilter =  {
         freeSearch: '',
         myRecipes: false,
+        favorite:false,
         tags: [],
         authors: [],
         numberOfRecipes: 10,

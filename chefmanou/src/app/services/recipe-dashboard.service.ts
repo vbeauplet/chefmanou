@@ -74,15 +74,15 @@ export class RecipeDashboardService {
     this.recipeFilter = this.recipeFilterService.recipeFilter;
     
     // Refresh recipes
-    this.loadRecipesOnServer();
+    this.filterRecipes();
   }
   
   /**
-   * Load recipes from server
+   * Filter recipes from current filter
    */
-  public loadRecipesOnServer(){
+  public filterRecipes(){
     
-    // Do nothing if profile or recipe filter is not loaded yet
+       // Do nothing if profile or recipe filter is not loaded yet
     if(this.profile.isUndefined() || this.recipeFilter == null){
       return;
     }
@@ -92,6 +92,65 @@ export class RecipeDashboardService {
     
     // Reset message
     this.messageCode = 0;
+    
+    // Redirect to correct filtering method    
+    if(this.recipeFilter.favorite){
+      this.filterRecipesLocally(this.profileService.profile.resolvedFavoriteRecipes)
+    }
+    else{
+      this.filterRecipesFromServer();
+    }
+  }
+  
+  /**
+   * Filters a bunch of recipe locally (from current recipe filter) and display results
+   */
+  public filterRecipesLocally(recipes: Recipe[]){
+    let result: Recipe[] = [];
+    
+    for(let recipe of recipes){
+      
+      // Filter by free search
+      let freeSearch: string = this.recipeFilterService.recipeFilter.freeSearch.toLowerCase();
+      if(freeSearch != '' && !recipe.nameSearchTerms.includes(freeSearch)){
+        continue;
+      }
+      
+      // Filter by nature
+      if(this.recipeFilterService.recipeFilter.myRecipes && recipe.author != this.profileService.profile.user.userId){
+        continue;
+      }
+      
+      // Filter by tag
+      if(this.recipeFilterService.recipeFilter.tags.length != 0){
+        let tag: string = this.recipeFilterService.recipeFilter.tags[0];
+        if(!recipe.tags.includes(tag)){
+          continue;
+        }
+      }
+      
+      // Filter by author
+      if(this.recipeFilterService.recipeFilter.authors.length != 0){
+        let author: User = this.recipeFilterService.recipeFilter.authors[0];
+        if(author.userId != recipe.author){
+          continue;
+        }
+      }
+      
+      // If recipe has passed all filters, add it to result
+      result.push(recipe);
+    }
+    
+    // Sort result ann set recipes
+    result.sort((recipe1: Recipe ,recipe2: Recipe) => recipe2.created - recipe1.created);
+    this.recipes = result;
+    this.areRecipesLoaded = true;
+  }
+  
+  /**
+   * Load recipes from server and taking into account current filters
+   */
+  public filterRecipesFromServer(){
     
     // Create tempRecipes table
     let that = this;
