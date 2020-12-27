@@ -1,0 +1,11 @@
+<stateful-button
+  [icon]="this.icon"
+  [size]="this.size"
+  [shape]="this.shape"
+  [margin]="this.margin" 
+  [color]="(this.targetState)?this.color:'main'"
+  [status]="this.togglerLoadingStatus"
+  [label]="this.label"
+  [labelPosition]="this.labelPosition"
+  (click)="this.onClickToggler()">
+</stateful-button>
