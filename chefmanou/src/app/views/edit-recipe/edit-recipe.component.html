@@ -137,15 +137,18 @@
   *ngIf="this.recipeService.isLoaded"
   class="recipe-controls col-dir hor-left flex-block">
   
-  <stateful-button
+  <tl-fbase-button-toggler
     [size]="40"
     [shape]="'square'"
     [icon]="(this.recipeService.recipe.draft)?'x':'t'"
     [label]="this.recipeDraftFlagButtonLabel"
     [labelPosition]="'right'"
-    [status]="this.recipeDraftFlagStatus"
-    (click)="this.onClickPublish()">
-  </stateful-button>
+    [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
+    [sdbProperty]="'draft'"
+    [initialState]="this.recipeService.recipe.draft"
+    (toggleOnConfirmed)="this.onToggleDrafFlag(false)"
+    (toggleOffConfirmed)="this.onToggleDrafFlag(true)">
+  </tl-fbase-button-toggler>
   
   <stateful-button
     [size]="40"

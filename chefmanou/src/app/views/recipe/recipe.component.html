@@ -5,6 +5,7 @@
   [imageAttribute]="'imageUrl'"
   [imageShape]="'rectangle'"
   [hasOverlay]="true"
+  [displayFavoriteFlag]="false"
   [displayAllTags]="true">
 </recipe-card>
 
@@ -12,14 +13,18 @@
   *ngIf="this.recipeService.isLoaded"
   class="recipe-controls col-dir hor-left flex-block">
   
-  <stateful-button
+  <button-toggler
+    *ngIf="this.profileService.isLoaded"
     [size]="40"
     [shape]="'square'"
     [icon]="'6'"
-    [label]="'Ajouter en favori'"
+    [initialState]="this.profileService.profile.user.favoriteRecipes.includes(this.recipeService.recipe.id)"
+    [color]="'outline'"
+    [label]="'Ajouter aux favorites'"
     [labelPosition]="'right'"
-    [status]="-1">
-  </stateful-button>
+    (toggleOn)="this.onClickFavorite(true)"
+    (toggleOff)="this.onClickFavorite(false)">
+  </button-toggler>
   
   <stateful-button
     *ngIf="

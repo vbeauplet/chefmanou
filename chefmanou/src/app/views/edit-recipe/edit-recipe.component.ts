@@ -192,51 +192,19 @@ export class EditRecipeComponent implements OnInit {
   }
   
   /**
-   * Handle click on the 'publish' or 'unpublish' button
+   * Handle recipe publication
    */
-  public onClickPublish() {
-    // Check no operation is pending
-    if(this.recipeDraftFlagStatus === -1){
-      let that = this;
-      
-      // Record initial draft flag
-      const wasDraft = this.recipeService.recipe.draft;
-      
-      // Signal waiting
-      that.recipeDraftFlagStatus = 0;
-      
-      // Update recipe 'draft' flag with the corresponding value (which is the opposite to current one...)
-      let sdbPropertyUpdate = {};
-      sdbPropertyUpdate['draft'] = !this.recipeService.recipe.draft;
-      firebase.firestore().doc('recipes/' + this.recipeService.recipe.id).update(sdbPropertyUpdate)
-        .then(function() {
-            // Continue and set miniature URL
-            that.recipeDraftFlagStatus = 1;
-            
-            // Refresh Recipe dashboard
-            that.refreshRecipeDashboard();
-            
-            // Create associated publication events
-            if(wasDraft){
-              that.createRecipePublicationEvents();
-            }
-            
-            // Release status after the 3 second validation time span
-            setTimeout(() => {
-              that.recipeDraftFlagStatus = -1;
-               
-              // Recompute button label
-              that.recipeDraftFlagButtonLabel = (that.recipeService.recipe.draft)?'Publier la recette':'Mettre en brouillon';
-            
-            
-            }, 3000);
-          })
-        .catch(function(error) {
-            // If any, notify failure to user
-            that.recipeDraftFlagStatus = 2;
-            console.log(error);
-          });
+  public onToggleDrafFlag(published: boolean) {    
+    // Refresh Recipe dashboard
+    this.refreshRecipeDashboard();
+    
+    // Create associated publication events
+    if(published){
+      this.createRecipePublicationEvents();
     }
+       
+    // Recompute button label
+    this.recipeDraftFlagButtonLabel = (this.recipeService.recipe.draft)?'Publier la recette':'Mettre en brouillon'; 
   }
   
   /**

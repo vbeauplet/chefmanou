@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@ang
 import { Recipe } from 'src/app/model/recipe.model';
 import { CardComponent } from '../card/card.component';
 import { User } from 'src/app/model/user.model';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'recipe-card',
@@ -38,6 +39,12 @@ export class RecipeCardComponent extends CardComponent implements OnInit {
   @Input() displayAllTags: boolean = false;
   
   /**
+   * Tells if favorite flage shall be displayed
+   * true by default
+   */
+  @Input() displayFavoriteFlag: boolean = true;
+  
+  /**
    * Tells if recipe card active image shall provide the image overlay
    * False by default
    */
@@ -65,14 +72,28 @@ export class RecipeCardComponent extends CardComponent implements OnInit {
    */
   public areTagsUnwrapped: boolean = false;
   
+  /**
+   * Tells if the recipe is a profile favorite one
+   */
+  public isFavorite: boolean = false;
+  
   
   // Ad photo url, miniture url, show-controls, editable-photo, clickable, clicked url
 
-  constructor() {
+  constructor(
+    public profileService: ProfileService
+  ) {
     super();
   }
 
   ngOnInit(): void {
+    
+    // Set the favorite flag if need
+    if(this.displayFavoriteFlag){
+      if(this.profileService.isLoaded && this.profileService.profile.user.favoriteRecipes.includes(this.recipe.id)){
+        this.isFavorite = true;
+      }
+    }
     
     // Check if all tags shall be displayed displayed
     if(this.displayAllTags){
