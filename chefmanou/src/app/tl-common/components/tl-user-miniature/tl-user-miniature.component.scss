@@ -1,0 +1,12 @@
+.miniature-content{
+  min-width:0px;
+}
+
+.user-miniature-pseudo {
+  max-width:90%;
+  font-size:12px;
+  
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}

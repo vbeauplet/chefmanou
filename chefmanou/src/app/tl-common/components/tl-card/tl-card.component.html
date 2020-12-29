@@ -1,0 +1,18 @@
+<!-- Display loader if card is loading -->
+<tl-loader
+  style="margin-bottom:50px;margin-top:50px;"
+  *ngIf="this.isLoading">
+</tl-loader>
+
+<!-- Card body with custom content -->
+<div
+  *ngIf="!this.isLoading"
+  [ngStyle]="{
+    'padding': this.padding + 'px'
+  }"
+  class="recipe-card-body full col-dir hor-center flex-block">
+   
+  <ng-content></ng-content>
+  
+</div>
+ 

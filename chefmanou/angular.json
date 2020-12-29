@@ -24,10 +24,12 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/app/tl-common/assets"
             ],
             "styles": [
               "src/styles.scss",
+              "src/app/tl-common/style/tl-common-styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": []

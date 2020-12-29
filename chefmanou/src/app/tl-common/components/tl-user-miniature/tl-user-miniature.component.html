@@ -1,0 +1,30 @@
+<!-- Placeholder, for positionning purposes  -->
+<div 
+  class="miniature-placeholder">
+</div>
+
+<!-- Label, Miniature content -->
+<div
+  class="miniature-text-container col-dir flex-block miniature-content">
+  
+  <!-- Recipe Title -->
+  <div
+    class="miniature-title">
+    {{ this.user.name }}
+  </div>
+  
+  <!-- Tags -->
+  <div
+    class="user-miniature-pseudo">
+    <i>@{{ this.user.pseudo }}</i>
+  </div>
+  
+</div>
+
+<!-- Miniature photo -->
+<img 
+  [src]="this.user.avatarUrl" 
+  class="miniature-photo"
+  [ngStyle]="{
+    'width': this.height + 'px',
+    'height': this.height + 'px'}"/>

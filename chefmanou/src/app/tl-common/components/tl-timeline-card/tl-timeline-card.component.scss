@@ -1,0 +1,23 @@
+:host{
+  border-radius:0px!important;
+  flex-wrap:nowrap;
+}
+  
+  :host.timeline-top{
+    border-top: var(--main-content-color) 2px;
+  }
+  
+  :host.timeline-left{
+    border-left:solid var(--main-content-color) 2px;
+  }
+
+
+.timeline-dot{
+  width:8px;
+  height:8px;
+  border-radius:4px;
+  background-color:var(--main-content-color);
+  
+  margin-left:-5px;
+  margin-right:10px;
+}

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Recipe } from 'src/app/model/recipe.model';
-import { CardComponent } from '../card/card.component';
 import { User } from 'src/app/model/user.model';
 import { ProfileService } from 'src/app/services/profile.service';
+
+import { TlCardComponent } from '../../tl-common/components/tl-card/tl-card.component';
 
 @Component({
   selector: 'recipe-card',
@@ -12,7 +13,7 @@ import { ProfileService } from 'src/app/services/profile.service';
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.scss']
 })
-export class RecipeCardComponent extends CardComponent implements OnInit {
+export class RecipeCardComponent extends TlCardComponent implements OnInit {
 
   /**
    * Input user

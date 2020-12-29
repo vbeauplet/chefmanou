@@ -1,0 +1,50 @@
+<!-- Toggler Button -->
+<div
+  [ngStyle]="{
+      'height' : this.size + 'px',
+      'width' : 1.8 * this.size + 'px',
+      'border-radius' : 1/2 * this.size + 'px',
+      'margin': this.margin + 'px'
+    }"
+  class="toggler-container form-input hor-left vert-center row-dir flex-block"
+  [class.failure-bg-element]="
+    (this.onBgColor == 'failure' && this.targetState && this.togglerLoadingStatus != 0) 
+    || (this.offBgColor == 'failure' && !this.targetState && this.togglerLoadingStatus != 0)
+    || (this.loadingBgColor == 'failure' && this.togglerLoadingStatus == 0)"
+  [class.success-bg-element]="
+    (this.onBgColor == 'success' && this.targetState && this.togglerLoadingStatus != 0) 
+    || (this.offBgColor == 'success' && !this.targetState && this.togglerLoadingStatus != 0)
+    || (this.loadingBgColor == 'success' && this.togglerLoadingStatus == 0)"
+  [class.neutral-bg-element]="
+    (this.onBgColor == 'neutral' && this.targetState && this.togglerLoadingStatus != 0) 
+    || (this.offBgColor == 'neutral' && !this.targetState && this.togglerLoadingStatus != 0)
+    || (this.loadingBgColor == 'neutral' && this.togglerLoadingStatus == 0)"
+  [class.outline-bg-element]="
+    (this.onBgColor == 'outline' && this.targetState && this.togglerLoadingStatus != 0) 
+    || (this.offBgColor == 'outline' && !this.targetState && this.togglerLoadingStatus != 0)
+    || (this.loadingBgColor == 'outline' && this.togglerLoadingStatus == 0)"
+  (click)="this.onClickToggler()">
+  
+  <tl-stateful-button
+    class="toggler-moving-part"
+    [class.on]="this.targetState"
+    [shape]="'round'"
+    [icon]="this.icon"
+    [size]="this.size"
+    [margin]="0"
+    [status]="this.togglerLoadingStatus"
+    [ngStyle]="{
+      'margin-left' : (this.targetState)?0.8*this.size + 'px':'0px'
+    }">
+  </tl-stateful-button>
+  
+</div>
+
+<!-- Label -->
+<div
+  *ngIf="this.label != ''"
+  class="toggler-label">
+  
+  {{ this.label }}
+  
+</div>

@@ -1,4 +1,4 @@
-<nuki-card
+<tl-nuki-card
   style="margin:0px"
   [size]="'full'"
   [imageSrc]="this.user.avatarUrl">
@@ -24,7 +24,7 @@
     <div
       class="user-element near-full row-dir hor-center vert-center flex-block">
       
-      <stateful-button
+      <tl-stateful-button
         class="user-card-button"
         [size]="40"
         [shape]="'round'"
@@ -32,24 +32,24 @@
         [color]="(this.profileService.profile.user.followings.includes(this.user.userId))?'outline':'main'"
         [status]="this.userFollowStatus"
         (click)="this.onClickFollow()">
-      </stateful-button>
+      </tl-stateful-button>
     
-      <neumorphic-button
+      <tl-button
         [size]="40"
         [shape]="'round'"
         [icon]="'l'"
         title="Voir ses recettes"
         (click)="this.onClickSeeRecipes()">
-      </neumorphic-button>
+      </tl-button>
       
-      <neumorphic-button
+      <tl-button
         [size]="40"
         [shape]="'round'"
         [icon]="':'">
-      </neumorphic-button>
+      </tl-button>
     
     </div>
     
   </div>
   
-</nuki-card>
+</tl-nuki-card>

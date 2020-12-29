@@ -13,7 +13,7 @@
   *ngIf="this.recipeService.isLoaded"
   class="recipe-controls col-dir hor-left flex-block">
   
-  <button-toggler
+  <tl-button-toggler
     *ngIf="this.profileService.isLoaded"
     [size]="40"
     [shape]="'square'"
@@ -24,9 +24,9 @@
     [labelPosition]="'right'"
     (toggleOn)="this.onClickFavorite(true)"
     (toggleOff)="this.onClickFavorite(false)">
-  </button-toggler>
+  </tl-button-toggler>
   
-  <stateful-button
+  <tl-stateful-button
     *ngIf="
       this.profileService.isLoaded 
       && this.recipeService.recipe.admins.includes(this.profileService.profile.user.userId)"
@@ -37,16 +37,16 @@
     [labelPosition]="'right'"
     [status]="this.editRecipeButtonStatus"
     (click)="this.onClickEdit()">
-  </stateful-button>
+  </tl-stateful-button>
   
-  <neumorphic-button
+  <tl-button
     [size]="40"
     [shape]="'square'"
     [icon]="'('"
     [label]="'Revenir au recettes'"
     [labelPosition]="'right'"
     (click)="this.onClickBack()">
-  </neumorphic-button>
+  </tl-button>
   
 </div>  
 

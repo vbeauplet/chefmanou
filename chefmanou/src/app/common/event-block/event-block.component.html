@@ -146,7 +146,7 @@
     {{ event.resolvedUser.name }} a mis à jour sa photo de profil :
   </div>
   
-  <outlined-active-image
+  <tl-fbase-outlined-active-image
     *ngIf="event.isUserResolved"
     style="margin:10px"
     [size]="'half'"
@@ -154,7 +154,7 @@
     [hasOverlay]="true"
     [hasUploadButton]="false"
     [imageSrc]="event.message">
-  </outlined-active-image>
+  </tl-fbase-outlined-active-image>
   
 </div>
 
@@ -169,14 +169,14 @@
     Ma photo de profil a été mise à jour
   </div>
   
-  <outlined-active-image
+  <tl-fbase-outlined-active-image
     style="margin:10px"
     [size]="'half'"
     [shape]="'round'"
     [hasOverlay]="true"
     [hasUploadButton]="false"
     [imageSrc]="event.message">
-  </outlined-active-image>
+  </tl-fbase-outlined-active-image>
   
 </div>
 

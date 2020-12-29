@@ -1,27 +1,16 @@
+import { TlUser } from '../tl-common/model/tl-user.model';
+
 /**
  * Defines a user structure
+ * 
+ * Extends basic tl-common user object
  */
-export class User {
-  
-  /**
-   * Unique ID of the user
-   */
-  public userId: string = '';
-  
-  /**
-   * Name of the user
-   */
-  public name: string = ''
+export class User extends TlUser {
   
   /**
    * Name, as 'search term' to ease firestore search request on name
    */
   public nameSearchTerm: string = '';
-  
-  /**
-   * Unique pseudo to identify the côker
-   */
-  public pseudo: string = '';
   
   /**
    * Pseudo, as 'search term' to ease firestore search request on pseudo
@@ -32,16 +21,6 @@ export class User {
    * Name of the user
    */
   public email: string = '';
-  
-  /**
-   * URL of the user's avatar
-   */
-  public avatarUrl: string = '';
- 
-  /**
-   * URL of the user's photo
-   */
-  public photoUrl: string = '';
   
   /**
    * User followers
@@ -75,10 +54,6 @@ export class User {
   
 
   constructor() {
-    // Nothing to do here
-  }
-  
-  public isUndefined(): boolean {
-    return this.userId === "";
+    super();
   }
 }

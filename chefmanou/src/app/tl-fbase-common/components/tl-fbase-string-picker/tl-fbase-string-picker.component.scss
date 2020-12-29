@@ -1,0 +1,20 @@
+.string-picker-item {
+  cursor:pointer;
+  
+  padding-top:4px;
+  padding-bottom:4px;
+  padding-right: 6px;
+  padding-left:6px;
+}
+
+  .string-picker-item:hover {
+    background-color:var(--transparent-bg-color);
+  }
+  
+  .string-picker-item.selected {
+    background-color: var(--outline-content-color);
+  }
+  
+.create-item-input-element{
+  padding-left:8px;
+}

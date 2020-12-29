@@ -43,13 +43,13 @@
      
     </div>
     
-    <neumorphic-button
+    <tl-button
       style="margin-top:15px;margin-bottom:20px;"
       *ngIf="this.recipeDashboardService.recipes.length === this.recipeFilterService.recipeFilter.numberOfRecipes"
       [icon]="']'"
       [shape]="'square'"
       (click)="this.showMore()">
-    </neumorphic-button>
+    </tl-button>
   
   </div>
 

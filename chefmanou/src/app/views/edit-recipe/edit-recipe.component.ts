@@ -12,9 +12,10 @@ import { Recipe } from 'src/app/model/recipe.model';
 import { RecipeDashboardService } from 'src/app/services/recipe-dashboard.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { EventService } from 'src/app/services/event.service';
-import { ColorItem } from 'src/app/common/color-picker/color-picker.component';
-import { AlertService } from 'src/app/layout/services/alert.service';
 import { User } from 'src/app/model/user.model';
+
+import { TlAlertService } from '../../tl-common/services/tl-alert.service';
+import { ColorItem } from '../../tl-common/components/tl-color-picker/tl-color-picker.component';
 
 
 @Component({
@@ -89,7 +90,7 @@ export class EditRecipeComponent implements OnInit {
   constructor(public recipeService: RecipeService,
               public recipeDashboardService: RecipeDashboardService,
               public profileService: ProfileService,
-              private alertService: AlertService,
+              private alertService: TlAlertService,
               private eventService: EventService,
               private route: ActivatedRoute,
               private router: Router) { }

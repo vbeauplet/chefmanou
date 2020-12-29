@@ -1,0 +1,32 @@
+<div 
+  class="pushable outlined-sharp col-dir vert-center hor-center container-block"
+  [class.round]="this.shape === 'round'"
+  [class.dome]="this.shape === 'round'"
+  [ngStyle]="{
+    'min-width': this.size + 'px',
+    'height': this.size + 'px',
+    'margin': this.margin + 'px'}">
+  
+  <!-- Content, standard mode -->
+  <tl-square-icon
+    *ngIf="this.status == -1"
+    [size]="this.size * 1/2"
+    [iconPackage] = "this.iconPackage"
+    [icon]="this.icon"
+    [color]="this.color">
+  </tl-square-icon>
+  
+  <!-- Content, loading mode, success and failure -->
+  <tl-spinner
+    *ngIf="this.status >= 0"
+    [size]="this.size * 2/5"
+    [loadingStatus]="this.status">
+  </tl-spinner>
+  
+</div>
+
+<div
+  class="button-label">
+  {{ this.label }}
+</div>
+

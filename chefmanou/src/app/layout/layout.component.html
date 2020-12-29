@@ -1,3 +1,28 @@
-<alert></alert>
+<tl-alert
+  [customObjectAlertTemplate]="customObjectAlert">
+</tl-alert>
 
-<mobile-menu></mobile-menu>
+<tl-mobile-menu
+  *ngIf="this.authService.authInfos.isAuth"
+  [menuItems]="this.menuItems">
+</tl-mobile-menu>
+
+
+
+<!-- Define template for custom object alerts -->
+<ng-template
+  #customObjectAlert
+  let-data>
+  
+  <!-- Case it is an event alert -->
+  
+  <event-block
+    *ngIf="this.isEventAlert(data)"
+    [event]="data.customObject"
+    [margined]="false"
+    [padded]="false"
+    [outlined]="false"
+    [showDate]="false">
+  </event-block>
+  
+</ng-template>

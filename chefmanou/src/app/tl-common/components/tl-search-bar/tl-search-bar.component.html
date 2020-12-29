@@ -1,0 +1,15 @@
+<input
+  id="{{ this.searchBarUniqueId }}"
+  class="search-bar-input form-input search-bar-input"
+  placeholder="{{ this.placeholder }}"
+  type="search"
+  (keydown.enter)="$event.stopPropagation();this.onPressEnter($event.target.value)">
+    
+<tl-button
+  [icon]="'ô'"
+  [size]="50"
+  [margin]="0"
+  [shape]="'square'"
+  (click)="this.onClickSearchButton()">
+</tl-button>
+    

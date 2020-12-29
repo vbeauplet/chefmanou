@@ -1,5 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
+import { Event } from "../model/event.model";
+
+import { ITlMenuItem } from '../tl-common/interfaces/tl-menu-item.interface'
+import { AuthService } from '../auth/services/auth.service';
+
+import { TlAlert } from '../tl-common/model/tl-alert.model';
+
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -7,43 +14,70 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
   
-  /**
-   * Tells if menu shall be displayed (unwrapped)
+  /** 
+   * Chef Manou menu items
    */
-  public displayMenu : boolean = false;
+  public menuItems: ITlMenuItem[] = [
+    {
+      label:'Home',
+      icon:'ï',
+      route:'/activity'
+    },
+    {
+      label:'Profil',
+      icon:'+',
+      route:'/profile'
+    },
+    {
+      label:'Recettes',
+      icon:'l',
+      route:'/kitchen'
+    },
+    {
+      label:'Plus',
+      icon:'ö',
+      subItems: [
+        {
+          label:'Créer une recette',
+          icon:']',
+          route:'/recipe/new'
+        },
+        {
+          label:'Brouillons',
+          icon:'l',
+          route:'/draft'
+        },
+        {
+          label:'Historique',
+          icon:'t',
+          route:'/history'
+        },
+        {
+          label:'Ajouter un cuisinier',
+          icon:'-',
+          route:'/user/follow'
+        }
+      ]
+    }
+  ];
   
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit() { 
     
   }
   
-  public onOnHamburger(){
-    this.displayMenu = true;
-  }
-  
-  public onOffHamburger(){
-    this.displayMenu = false;
-  }
-  
-  /*
-   * Detect click ouside layout
+  /**
+   * Tells if an alert is an event alert
    */
-   
-  private wasClickInside: boolean = false;
-  
-  @HostListener('click')
-  clickInside() {
-    this.wasClickInside = true;
+  public isEventAlert(alert:TlAlert): boolean{
+    return alert.customObject != null  && alert.customObject instanceof Event;
   }
   
-  @HostListener('document:click')
-  clickout() {
-    if (!this.wasClickInside) {
-      // Action to perform when click outside
-      this.displayMenu = false;
-    }
-    this.wasClickInside = false;
+  public toto(){
+    return "bibi";
   }
 
 }

@@ -1,18 +1,18 @@
-<loader
+<tl-loader
   *ngIf="!this.recipeService.isLoaded"
   style="margin-top:50px">
-</loader>
+</tl-loader>
 
 <div
   *ngIf="this.recipeService.isLoaded"
   class="full margined row-dir hor-center vert-up flex-block">
   
   
-  <card
+  <tl-card
     style="margin:0px"
     [size]="'xbig'">
     
-    <active-image
+    <tl-fbase-active-image
       *ngIf="this.recipeService.recipe.imageUrl !== null && this.recipeService.recipe.imageUrl !== ''"
       style="margin-bottom:40px"
       [hasOverlay]="true"
@@ -24,9 +24,9 @@
       [miniatureImageUrlSdbProperty]="'miniatureImageUrl'"
       [imageSrc]="this.recipeService.recipe.imageUrl"
       (changeImage)="this.onRecipeModification()">
-    </active-image>
+    </tl-fbase-active-image>
 
-    <interactive-input
+    <tl-fbase-interactive-input
       [size]="'near-full'"
       [inputId]="'recipe-name-input'"
       [inputTextAlign]="'center'"
@@ -35,43 +35,43 @@
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'name'"
       [enableSearchTermsUpdate]="true"
-      (onSuccess)="this.onRecipeModification()">
-    </interactive-input>
+      (success)="this.onRecipeModification()">
+    </tl-fbase-interactive-input>
 
     <div 
       class="big-top-margined small title">
       Visibilité
     </div>
     
-    <string-picker
+    <tl-fbase-string-picker
       [size]="'near-full'"
       [initialItems]="['privée', 'protégée', 'publique']"
       [initialSelectedItems]="[this.recipeService.recipe.visibility]"
       [singleSelection]="true"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'visibility'">
-    </string-picker>
+    </tl-fbase-string-picker>
     
     <div 
       class="big-top-margined small title">
       Tags
     </div>
     
-    <string-picker
+    <tl-fbase-string-picker
       [size]="'near-full'"
       [initialItems]="['vegetarien', 'apero', 'facile', 'dessert', 'patisserie', 'asiatique', 'bouillon', 'salade', 'pizza']"
       [initialSelectedItems]="this.recipeService.recipe.tags"
       [editable]="true"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'tags'"> 
-    </string-picker>
+    </tl-fbase-string-picker>
     
     <div 
       class="big-top-margined small title">
       Plus
     </div>
     
-    <interactive-input
+    <tl-fbase-interactive-input
       [size]="'near-full'"
       [inputId]="'recipe-portion-number-input'"
       [inputTextAlign]="'center'"
@@ -79,10 +79,10 @@
       [altPlaceholder]="'Nombre de portions'"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'portionNumber'"
-      (onSuccess)="this.onRecipeModification()">
-    </interactive-input>
+      (success)="this.onRecipeModification()">
+    </tl-fbase-interactive-input>
     
-    <interactive-input
+    <tl-fbase-interactive-input
       [size]="'near-full'"
       [inputId]="'recipe-time-input'"
       [inputTextAlign]="'center'"
@@ -90,15 +90,15 @@
       [altPlaceholder]="'Temps estimé'"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'time'"
-      (onSuccess)="this.onRecipeModification()">
-    </interactive-input>
+      (success)="this.onRecipeModification()">
+    </tl-fbase-interactive-input>
     
      <div 
       class="big-top-margined small title">
       Personnalisation
     </div>
     
-    <color-picker
+    <tl-fbase-color-picker
       style="margin-bottom:40px;"
       [size]="'near-full'"
       [alignment]="'center'"
@@ -107,9 +107,9 @@
       [initialItems]="this.proposedColorItems"
       [initialSelectedItems]="(this.recipeService.recipe.color !== '')?[this.matchColorItem(this.recipeService.recipe.color)]:[]"
       (selectItems)="this.onSelectColor()">
-    </color-picker>
+    </tl-fbase-color-picker>
 
-  </card>
+  </tl-card>
   
   <div
     *ngIf="this.displayAdminCard"
@@ -120,14 +120,14 @@
       Editeurs
     </div>
     
-    <user-picker
+    <tl-fbase-user-picker
       *ngIf="this.recipeService.areAdminsLoaded"
       [size]="'near-full'"
       [initialSelectedUsers]="this.recipeService.resolvedAdmins"
       [sdbDocNode]="'recipes/' + this.recipeService.recipe.id"
       [sdbProperty]="'admins'"
       (selectUser)="this.createRecipeEditorAddedEvents($event)">
-    </user-picker>
+    </tl-fbase-user-picker>
     
   </div>
   
@@ -150,7 +150,7 @@
     (toggleOffConfirmed)="this.onToggleDrafFlag(true)">
   </tl-fbase-button-toggler>
   
-  <stateful-button
+  <tl-stateful-button
     [size]="40"
     [shape]="'square'"
     [icon]="'u'"
@@ -158,34 +158,34 @@
     [labelPosition]="'right'"
     [status]="this.recipeDeleteStatus"
     (click)="this.onClickDelete()">
-  </stateful-button>
+  </tl-stateful-button>
   
-  <neumorphic-button
+  <tl-button
     [size]="40"
     [shape]="'square'"
     [icon]="'-'"
     [label]="'Ajouter des éditeurs'"
     [labelPosition]="'right'"
     (click)="this.displayAdminCard = !this.displayAdminCard">
-  </neumorphic-button>
+  </tl-button>
   
-  <neumorphic-button
+  <tl-button
     [size]="40"
     [shape]="'square'"
     [icon]="'M'"
     [label]="'Visualiser la recette'"
     [labelPosition]="'right'"
     (click)="this.onClickView()">
-  </neumorphic-button>
+  </tl-button>
   
-  <neumorphic-button
+  <tl-button
     [size]="40"
     [shape]="'square'"
     [icon]="'Q'"
     [label]="'Initialiser le template'"
     [labelPosition]="'right'"
     (click)="this.onClickInitializeTemplate()">
-  </neumorphic-button>
+  </tl-button>
   
 </div>
 
@@ -197,9 +197,11 @@
     *ngIf="this.recipeService.isLoaded"
     style="margin-bottom:15px;"
     class="full flex-block">
-    <spinner 
+    
+    <tl-spinner 
       [loadingStatus]="this.recipeContentLoadingStatus">
-    </spinner>
+    </tl-spinner>
+    
     <ckeditor
       style="margin-top:15px;"
       class="ckeditor"

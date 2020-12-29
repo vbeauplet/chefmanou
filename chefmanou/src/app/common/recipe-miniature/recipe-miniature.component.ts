@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from 'src/app/model/recipe.model';
-import { MiniatureComponent } from '../miniature/miniature.component';
+import { TlMiniatureComponent } from '../../tl-common/components/tl-miniature/tl-miniature.component';
 import { Router } from '@angular/router';
 import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
 
@@ -14,15 +14,15 @@ import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
   templateUrl: './recipe-miniature.component.html',
   styleUrls: [
     './recipe-miniature.component.scss',
-    '../miniature/miniature.component.scss']
+    '../../tl-common/components/tl-miniature/tl-miniature.component.scss']
 })
-export class RecipeMiniatureComponent extends MiniatureComponent implements OnInit {
+export class RecipeMiniatureComponent extends TlMiniatureComponent implements OnInit {
 
   /**
    * Recipe input, mandatory
    */
   @Input() recipe: Recipe;
-  
+   
   /**
    * Tells if both recipe and tag are clickable, leading to the standrd behavior:
    * - Clicking on recipe drives you to the recipe

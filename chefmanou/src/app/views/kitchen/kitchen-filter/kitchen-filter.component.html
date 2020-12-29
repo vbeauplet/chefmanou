@@ -4,28 +4,28 @@
   }"
   class="recipe-card-body full col-dir hor-center flex-block">
 
-  <search-bar
+  <tl-search-bar
     [size]="'near-full'"
     [placeholder]="'Chercher une recette'"
     (searchValue)="this.recipeFilterService.updateFreeSearch($event)">
-  </search-bar>
+  </tl-search-bar>
   
   <div
     class="near-full row-dir hor-center vert-center flex-block">
     
-    <neumorphic-button
+    <tl-button
       [icon]="(this.filtersAreUnwrapped)?'Ö':'Ñ'"
       [shape]="'round'"
       [size]="50"
       (click)="this.filtersAreUnwrapped=!this.filtersAreUnwrapped">
-    </neumorphic-button>
+    </tl-button>
      
-    <neumorphic-button
+    <tl-button
       [icon]="'d'"
       [shape]="'round'"
       [size]="50"
       (click)="this.recipeFilterService.reset()">
-    </neumorphic-button>
+    </tl-button>
   
   </div>
   
@@ -33,16 +33,16 @@
     *ngIf="this.filtersAreUnwrapped"
     class="col-dir flex-block">
     
-    <string-picker
+    <tl-string-picker
       [size]="'near-full'"
       [singleSelection]="true"
       [initialItems]="['Toutes les Recettes', 'Mes Recettes']"
       [initialSelectedItems]="(this.recipeFilterService.recipeFilter.myRecipes)?['Mes Recettes']:['Toutes les Recettes']"
       [synchrone]="true"
       (selectItem)="this.recipeFilterService.updateRecipeNature($event)">
-    </string-picker>
+    </tl-string-picker>
     
-    <toggler
+    <tl-toggler
       [icon]="'6'"
       [label]="'Favorites seulement'"
       [onBgColor]="'outline'"
@@ -50,14 +50,14 @@
       [synchrone]="true"
       (toggleOn)="this.recipeFilterService.updateFavoriteFlag(true)"
       (toggleOff)="this.recipeFilterService.updateFavoriteFlag(false)">
-    </toggler>
+    </tl-toggler>
     
     <div
       class="big-top-margined small title">
       Tags
     </div>
     
-    <string-picker
+    <tl-string-picker
       [size]="'near-full'"
       [singleSelection]="true"
       [initialItems]="['vegetarien', 'apero', 'facile', 'dessert', 'patisserie', 'asiatique', 'bouillon', 'salade', 'pizza']"
@@ -67,33 +67,33 @@
       [synchrone]="true"
       (selectItem)="this.recipeFilterService.updateTags([$event])"
       (unselectItem)="this.recipeFilterService.updateTags([])">
-    </string-picker>
+    </tl-string-picker>
     
     <div
       class="kitchen-filter-title small title">
       Auteurs
     </div>
-    
-    <user-picker
+
+    <tl-fbase-user-picker
       [size]="'two-third'"
       [singleSelection]="true"
       [initialSelectedUsers]="this.recipeFilterService.recipeFilter.authors"
       [synchrone]="true"
       (selectUser)="this.recipeFilterService.updateAuthors([$event])"
       (unselectUser)="this.recipeFilterService.updateAuthors([])">
-    </user-picker>
+    </tl-fbase-user-picker>
     
     <div
       class="big-top-margined small title">
      Trier par
     </div>
     
-    <string-picker
+    <tl-string-picker
       [size]="'near-full'"
       [singleSelection]="true"
       [initialItems]="['Création', 'Modification', 'Vues']"
       [initialSelectedItems]="['Création']">
-    </string-picker>
+    </tl-string-picker>
     
   </div>
     

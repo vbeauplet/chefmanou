@@ -1,0 +1,120 @@
+<!-- Front of the component UI. Display all selected user, which can be removed from selection -->
+<div 
+  *ngIf="!this.isFlipped"
+  class="full col-dir hor-center flex-block">
+  
+  <!-- Selected users clickable miniatures -->
+  <div
+    *ngFor="let user of this.selectedUsers"
+    class="string-picker-user"
+    [ngStyle]="{
+        'margin-bottom': -this.userSize + 'px'
+      }">
+    
+    <tl-user-miniature
+      style="margin-bottom:5px"
+      [user]="user"
+      [size]="'full'"
+      [miniatureStyle]="'transparent'"
+      [height]="this.userSize"
+      [margined]="false"
+      [clickable]="false">
+    </tl-user-miniature>
+    
+    <div
+      class="miniature-overlay row-dir vert-center hor-center flex-block"
+      (click)="this.onClickUser(user)"
+      [ngStyle]="{
+          'top': -this.userSize - 5 + 'px',
+          'height': this.userSize + 'px',
+          'border-radius': this.userSize / 2 + 'px'
+        }">
+      <tl-square-icon
+        *ngIf="!this.userLoading.includes(user)"
+        class="miniature-overlay-icon"
+        [size]="this.userSize * 1/2"
+        [icon]="'['"
+        [color]="'outline'">
+      </tl-square-icon>
+      <tl-spinner
+        *ngIf="this.userLoading.includes(user)"
+        [size]="this.userSize * 1/2">
+      </tl-spinner>
+    </div>
+  </div>
+  
+  <tl-button
+    [size]="30"
+    [icon]="'ô'"
+    (click)="this.isFlipped = !this.isFlipped">
+  </tl-button>
+  
+</div>
+
+
+<!-- Back component UI. Display user search so that users can be selected -->
+<div 
+  class="full col-dir hor-center flex-block"
+  *ngIf="this.isFlipped">
+  
+  <tl-search-bar
+    [size]="'full'"
+    [placeholder]="'Cherche des cuisiniers'"
+    (searchValue)="this.search($event)">
+  </tl-search-bar>
+  
+  <tl-loader
+    *ngIf="this.isSearching">
+  </tl-loader>
+  
+  <div
+    *ngIf="!this.isSearching && this.proposedUsers.length !== 0"
+    class="full col-dir hor-center flex-block">
+    <div
+      *ngFor="let user of this.proposedUsers"
+      class="string-picker-user"
+      [ngStyle]="{
+          'margin-bottom': -this.userSize + 'px'
+        }">
+      
+      <tl-user-miniature
+        style="margin-bottom:5px"
+        [user]="user"
+        [size]="'full'"
+        [miniatureStyle]="'transparent'"
+        [height]="this.userSize"
+        [margined]="false"
+        [clickable]="false">
+      </tl-user-miniature>
+      
+      <div
+        class="miniature-overlay row-dir vert-center hor-center flex-block"
+        (click)="this.onClickUser(user)"
+        [ngStyle]="{
+            'top': -this.userSize - 5 + 'px',
+            'height': this.userSize + 'px',
+            'border-radius': this.userSize / 2 + 'px'
+          }">
+        <tl-square-icon
+          *ngIf="!this.userLoading.includes(user)"
+          class="miniature-overlay-icon"
+          [size]="this.userSize * 1/2"
+          [icon]="'Z'"
+          [color]="'outline'">
+        </tl-square-icon>
+        <tl-spinner
+          *ngIf="this.userLoading.includes(user)"
+          [size]="this.userSize * 1/2">
+        </tl-spinner>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div
+    *ngIf="!this.isSearching && this.proposedUsers.length === 0"
+    class="string-picker-user-list">
+    Aucun resultat trouvé
+  </div>
+  
+</div>

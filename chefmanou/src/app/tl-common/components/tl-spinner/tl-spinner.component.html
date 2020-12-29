@@ -1,0 +1,37 @@
+<!-- Case Loading -->
+<div 
+  *ngIf="this.loadingStatus === 0"
+  [class]="'loading-spinner ' + this.color + '-colored'"
+  [ngStyle]="{
+    'border-width': this.getBorderSize() + 'px',
+    'border-style': 'solid',
+    'border-bottom-color': 'transparent',
+    'border-left-color': 'transparent',
+    'border-right-color': 'transparent',
+    'width': this.size + 'px',
+    'height': this.size + 'px'}">
+</div>
+
+<!-- Case Success -->
+<tl-square-icon
+  *ngIf="this.loadingStatus === 1"
+  [icon]="'W'"
+  [size]="this.size"
+  [color]="'success'">
+</tl-square-icon>
+
+<!-- Case failure -->
+<tl-square-icon
+  *ngIf="this.loadingStatus === 2"
+  [icon]="'X'"
+  [size]="this.size"
+  [color]="'failure'">
+</tl-square-icon>
+
+<!-- Placeholder -->
+<div 
+  *ngIf="this.loadingStatus === -1"
+  [ngStyle]="{
+    'width': this.size + 'px',
+    'height': this.size + 'px'}">
+</div>

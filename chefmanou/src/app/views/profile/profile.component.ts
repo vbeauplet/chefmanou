@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Router } from '@angular/router';
-import { UploadService } from 'src/app/services/upload.service';
 import { UserService } from 'src/app/services/user.service';
 import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ThemeService, Theme } from 'src/app/layout/services/theme.service';
-import { ColorItem } from 'src/app/common/color-picker/color-picker.component';
 
 import { Event } from "../../model/event.model";
 import { EventService } from 'src/app/services/event.service';
 import { ActivityService } from 'src/app/services/activity.service';
 
+import { TlThemeService } from '../../tl-common/services/tl-theme.service';
+import { ITlTheme } from '../../tl-common/interfaces/tl-theme.interface';
+import { ColorItem } from '../../tl-common/components/tl-color-picker/tl-color-picker.component';
+import { TlFbaseUploadService } from '../../tl-fbase-common/services/tl-fbase-upload.service';
+
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profile', 
   host: { 'class' : 'page'},
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
@@ -46,10 +48,10 @@ export class ProfileComponent implements OnInit {
    */
   constructor(
             private recipeFilterService: RecipeFilterService,
-            private themeService: ThemeService,
+            private themeService: TlThemeService,
             private authService: AuthService,
             private eventService: EventService,
-            public uploadService: UploadService,
+            public uploadService: TlFbaseUploadService,
             public userService: UserService,
             public profileService: ProfileService,
             public activityService: ActivityService,
@@ -86,7 +88,7 @@ export class ProfileComponent implements OnInit {
   /**
    * Convert theme object to ColorItem object
    */
-  private toColorItem(theme: Theme): ColorItem {
+  private toColorItem(theme: ITlTheme): ColorItem {
     return {
         payload: theme.name,
         label: theme.label,

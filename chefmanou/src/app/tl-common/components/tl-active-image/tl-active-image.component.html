@@ -1,0 +1,37 @@
+<tl-shape-block
+  class="active-image-container"
+  [size]="'full'"
+  [shape]="this.shape">
+  
+  <img 
+    [src]="this.imageSrc" 
+    class="active-image-image"/>
+    
+  <div
+    *ngIf="this.hasOverlay"
+    class="active-image-overlay"
+    [class.focus]="this.onFocus">
+    
+    <div 
+      class="active-image-icons">
+      <div
+        *ngFor="let activeIcon of this.activeIcons"
+        class="active-image-icon simple-icon"
+        (click)="this.onClickActiveIcon(activeIcon.name)">
+        {{ activeIcon.icon }}
+      </div>
+      <a 
+        class="active-image-icon simple-icon"
+        href="{{ this.imageSrc }}" 
+        target="_blank">
+        Ñ
+      </a>
+    </div>
+    
+    <tl-spinner
+      [loadingStatus]="this.loadingStatus">
+    </tl-spinner>
+       
+  </div>
+  
+</tl-shape-block>

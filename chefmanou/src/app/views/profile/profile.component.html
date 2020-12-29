@@ -5,7 +5,7 @@
   <div
     class="xbig row-dir vert-center padded hor-center outlined container-block profile-card">
     
-    <outlined-active-image
+    <tl-fbase-outlined-active-image
       style="margin:20px"
       [size]="'medium'"
       [shape]="'round'"
@@ -15,12 +15,12 @@
       [imageUrlSdbProperty]="'photoUrl'"
       [miniatureImageUrlSdbProperty]="'avatarUrl'"
       (changeImage)="this.createProfilePictureModificationEvents($event)">
-    </outlined-active-image>
+    </tl-fbase-outlined-active-image>
     
     <div
       class="profile-details col-dir hor-center flex-block">
       
-      <interactive-input
+      <tl-fbase-interactive-input
         [inputId]="'profile-name-input'"
         [inputLabel]="'Nom:'"
         [placeholder]="this.profileService.profile.user.name"
@@ -28,9 +28,9 @@
         [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
         [sdbProperty]="'name'"
         [enableSearchTermUpdate]="true">
-      </interactive-input>
+      </tl-fbase-interactive-input>
       
-      <interactive-input
+      <tl-fbase-interactive-input
         [inputId]="'profile-pseudo-input'"
         [inputLabel]="'Pseudo:'"
         [placeholder]="this.profileService.profile.user.pseudo"
@@ -38,21 +38,21 @@
         [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
         [sdbProperty]="'pseudo'"
         [enableSearchTermUpdate]="true">
-      </interactive-input>
+      </tl-fbase-interactive-input>
       
       
       <div style="margin-top:30px;">
         <b>Theme</b>
       </div>
         
-      <color-picker
+      <tl-fbase-color-picker
         *ngIf="this.profileService.isLoaded"
         [alignment]="'center'"
         [sdbDocNode]="'users/' + this.profileService.profile.user.userId"
         [sdbProperty]="'theme'"
         [initialItems]="this.initialThemeColorItems"
         [initialSelectedItems]="[this.getInitialSelectedThemeColorItem()]">
-      </color-picker>
+      </tl-fbase-color-picker>
       
       <div style="margin-top:30px;">
         <b>Stats</b>
@@ -69,21 +69,21 @@
         style="margin-top:30px"
         class="user-element full row-dir hor-center vert-center flex-block">
         
-        <neumorphic-button
+        <tl-button
           style="margin-left:5px;margin-right:5px;"
           [icon]="'U'"
           [size]="40"
           [label]="'Déconnexion'"
           (click)="this.onSignOut()">
-        </neumorphic-button>
+        </tl-button>
         
-        <neumorphic-button
+        <tl-button
           style="margin-left:5px;margin-right:5px;"
           [size]="40"
           [icon]="'l'"
           [label]="'Mes Recettes'"
           (click)="this.onClickSeeRecipes()">
-        </neumorphic-button>
+        </tl-button>
     
       </div>
     </div>
@@ -99,12 +99,12 @@
     [isLoading]="!this.profileService.isLoaded">
   </user-list>
   
-  <neumorphic-button
+  <tl-button
       [icon]="'x'"
       [shape]="'square'"
       [label]="'Chercher des cuisiniers'"
       (click)="this.onClickInviteCookers()">
-  </neumorphic-button>
+  </tl-button>
   
 </div>
 

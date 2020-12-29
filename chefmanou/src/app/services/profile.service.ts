@@ -8,8 +8,8 @@ import { UserService, userConverter } from './user.service';
 import * as firebase from 'firebase';
 import { User } from '../model/user.model';
 import { Recipe, recipeConverter } from '../model/recipe.model';
-import { ThemeService } from '../layout/services/theme.service';
-import { AlertService } from '../layout/services/alert.service';
+import { TlThemeService } from '../tl-common/services/tl-theme.service';
+import { TlAlertService } from '../tl-common/services/tl-alert.service';
 
 /**
  * Gathers all services and observables related to the profile of currently logged user.
@@ -46,11 +46,11 @@ export class ProfileService {
   public areFavoriteRecipesLoaded: boolean = false;
 
   /**
-   * Buildsthe ProfileService, subscribing to the needed observable
+   * Builds the ProfileService, subscribing to the needed observable
    */
   constructor(
-    private alertService: AlertService,
-    private themeService: ThemeService,
+    private alertService: TlAlertService,
+    private themeService: TlThemeService,
     private authService: AuthService, 
     private userService: UserService) { 
     
@@ -63,6 +63,13 @@ export class ProfileService {
         }
       }
     );
+    
+    /**
+     * If a user is already connected at profile service construction, immediatly refresh
+     */
+    if(this.authService.authInfos.isAuth){
+      this.refreshProfile(this.authService.authInfos.userId)
+    }
   }
   
   /**

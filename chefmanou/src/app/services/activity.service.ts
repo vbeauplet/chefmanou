@@ -7,7 +7,8 @@ import { Event } from "../model/event.model";
 
 import * as firebase from 'firebase';
 import { eventConverter } from '../model/event.model';
-import { AlertService } from '../layout/services/alert.service';
+
+import { TlAlertService } from '../tl-common/services/tl-alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,7 @@ export class ActivityService {
   public isLoaded: boolean = false;
 
   constructor(
-      private alertService: AlertService,
+      private alertService: TlAlertService,
       private eventService: EventService,
       private profileService: ProfileService
     ) {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/layout/services/alert.service';
+
+import { TlAlertService } from '../../tl-common/services/tl-alert.service';
 
 @Component({
   selector: 'app-new-recipe',
@@ -14,7 +15,7 @@ export class NewRecipeComponent implements OnInit {
   constructor(
     private router: Router,
     private recipeService: RecipeService,
-    private alertService: AlertService,
+    private alertService: TlAlertService,
   ) { }
 
   ngOnInit(): void {

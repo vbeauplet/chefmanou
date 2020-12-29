@@ -1,0 +1,37 @@
+<!-- Proposed Items -->
+<div
+  *ngFor="let item of this.items"
+  class="string-picker-item"
+  [class.selected]="this.selectedItems.includes(item)"
+  [ngStyle]="{
+      'font-size' : this.fontSize + 'px',
+      'margin' : this.elementMargin / 2 + 'px'
+    }"
+  (click)="this.onClickItem(item)">
+  {{ item }}
+</div>
+
+<!-- Add input field to create items if string picker is editable -->
+<input
+  *ngIf="this.editable"
+  id="{{ this.inputId }}" 
+  class="form-input create-item-input-element"
+  [ngStyle]="{
+      'height': 'calc(' + this.fontSize + 'px + 8px)', 
+      'line-height': 'calc(' + this.fontSize + 'px + 8px)', 
+      'font-size' : this.fontSize + 'px'
+    }"
+  type="text"/>
+<tl-button
+  *ngIf="this.editable"
+  [icon]="']'"
+  [size]="this.fontSize + 8"
+  [margin]="0"
+  (click)="this.onClickCreateButton()">
+</tl-button>
+
+<!-- Spinner to show loading situation -->
+<tl-spinner
+  [size]="this.fontSize + 4"
+  [loadingStatus]="this.loadingStatus">
+</tl-spinner>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/model/user.model';
-import { MiniatureComponent } from '../miniature/miniature.component';
+import { TlMiniatureComponent } from '../../tl-common/components/tl-miniature/tl-miniature.component';
 import { Router } from '@angular/router';
 import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
 
@@ -14,9 +14,9 @@ import { RecipeFilterService } from 'src/app/services/recipe-filter.service';
   templateUrl: './user-miniature.component.html',
   styleUrls: [
     './user-miniature.component.scss',
-    '../miniature/miniature.component.scss']
+    '../../tl-common/components/tl-miniature/tl-miniature.component.scss']
 })
-export class UserMiniatureComponent extends MiniatureComponent implements OnInit {
+export class UserMiniatureComponent extends TlMiniatureComponent implements OnInit {
 
   /**
    * User input, mandatory
