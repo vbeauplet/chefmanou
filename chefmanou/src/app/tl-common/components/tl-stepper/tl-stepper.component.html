@@ -1,0 +1,69 @@
+<div 
+  *ngFor="let step of this.steps"
+  class="stepper-step col-dir flex-block">
+  
+  <div
+    class="stepper-lines full row-dir hor-space-between flex-block">
+    
+    <div
+      [ngStyle]="{
+          'height': this.dotSize/2 + 'px'
+        }"
+      class="left stepper-line"
+      [class.masked]="this.steps.indexOf(step) == 0">
+    </div>
+    
+    <div
+      [ngStyle]="{
+        'height': this.dotSize/2 + 'px'
+      }"
+      class="right stepper-line"
+      [class.masked]="this.steps.indexOf(step) == this.steps.length - 1">
+    </div>
+  
+  </div>
+  
+  <div
+    [ngStyle]="{
+        'margin-top': '-' + this.dotSize/2 + 'px', 
+        'width': this.dotSize + 'px',
+        'height': this.dotSize + 'px'
+      }"
+    [class]="this.style + ' col-dir hor-center vert-center container-block stepper-step-dot'"
+    [class.focus]="this.steps.indexOf(step) == this.currentStepIndex"
+    [class.seen]="step.status == 1"
+    [class.completed]="step.status == 2"
+    (click)="this.onClickStep(this.steps.indexOf(step))">
+    
+    <!-- Display step index if not completed -->
+    <ng-container
+      *ngIf="step.status != 2">
+      {{ this.steps.indexOf(step) + 1 }}
+    </ng-container>
+    
+    <!-- Display success tick if completed -->
+    <tl-square-icon
+      *ngIf="step.status == 2"
+      [icon]="'W'"
+      [color]="'secondary'"
+      [size]="'this.dotSize*2/3'">
+    </tl-square-icon>
+  </div>
+  
+  <div
+    class="stepper-step-label">
+    {{ step.label }}
+  </div>
+</div>
+
+<!-- Next button if wanted -->
+<div
+  *ngIf="this.showNextButton"
+  class="stepper-controls col-dir flex-block">
+  <tl-button
+    [icon]="'É'"
+    [size]="this.dotSize"
+    [margin]="0"
+    (click)="this.next()">
+  </tl-button>
+</div>

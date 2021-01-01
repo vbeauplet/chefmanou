@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-    name: 'dateAgo',
+    name: 'tlDateAgo',
     pure: true
 })
-export class DateAgoPipe implements PipeTransform {
+export class TlDateAgoPipe implements PipeTransform {
 
     transform(value: any, args?: any): any {
         if (value) {

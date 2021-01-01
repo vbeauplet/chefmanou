@@ -1,14 +1,15 @@
 :host{
   border-radius:0px!important;
   flex-wrap:nowrap;
+  padding:10px;
 }
   
   :host.timeline-top{
-    border-top: var(--main-content-color) 2px;
+    border-top: solid var(--main-content-color) 2px;
   }
   
   :host.timeline-left{
-    border-left:solid var(--main-content-color) 2px;
+    border-left: solid var(--main-content-color) 2px;
   }
 
 
@@ -17,7 +18,4 @@
   height:8px;
   border-radius:4px;
   background-color:var(--main-content-color);
-  
-  margin-left:-5px;
-  margin-right:10px;
 }

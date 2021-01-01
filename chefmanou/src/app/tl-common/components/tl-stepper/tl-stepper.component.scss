@@ -1,0 +1,33 @@
+.stepper-step, .stepper-controls{  
+  flex-grow:1;
+}
+
+.stepper-step-dot{
+  border-radius:50%;
+  
+  border: solid transparent 1px;
+  
+  cursor:pointer;
+}
+
+  .stepper-step-dot.focus{
+    border: solid var(--outline-content-color) 1px !important;
+  }
+  
+  .stepper-step-dot.seen{
+    border: solid var(--success-content-color) 1px;
+  }
+  
+  .stepper-step-dot.completed{
+    background-color: var(--success-content-color);
+  }
+
+.stepper-line{
+  content:"";
+  flex-grow:1;
+  border-bottom: solid var(--soft-content-color) 1px;
+}
+
+.stepper-line.masked{
+  border-bottom: solid transparent 1px;
+}
